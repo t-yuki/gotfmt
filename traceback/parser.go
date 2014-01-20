@@ -13,28 +13,7 @@ import (
 	"strings"
 )
 
-type StackStatus string
-
-const (
-	StackStatusChanReceive = "chan receive"
-	StackStatusSemAcquire  = "semacquire"
-)
-
-// Call represents a function call.
-type Call struct {
-	Func   string
-	Source string
-	Line   int
-	Args   []uint64
-}
-
-// Stack represents the call stack of a goroutine.
-type Stack struct {
-	ID     int
-	Status StackStatus
-	Calls  []Call
-}
-
+// ParseStacks parse stacktrace of go executables.
 func ParseStacks(r io.Reader) ([]*Stack, error) {
 	var stacks []*Stack
 	re := regexp.MustCompile(`goroutine (\d+) \[([\w ]+)\]:`)

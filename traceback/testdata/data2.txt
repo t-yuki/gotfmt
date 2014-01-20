@@ -1,0 +1,21 @@
+panic: test timed out after 1us
+
+goroutine 5 [running]:
+runtime.panic(0x4cc8a0, 0xc210037470)
+	/usr/local/go/src/pkg/runtime/panic.c:266 +0xb6
+testing.func·007()
+	/usr/local/go/src/pkg/testing/testing.go:596 +0xd4
+created by time.goFunc
+	/usr/local/go/src/pkg/time/sleep.go:123 +0x47
+
+goroutine 1 [runnable]:
+testing.func·004()
+	/usr/local/go/src/pkg/testing/example.go:79 +0xd8
+testing.runExample(0x52f2f0, 0x18, 0x555c78, 0x55ed30, 0x432, ...)
+	/usr/local/go/src/pkg/testing/example.go:100 +0x379
+testing.RunExamples(0x555cc8, 0x6445e0, 0x1, 0x1, 0x1)
+	/usr/local/go/src/pkg/testing/example.go:36 +0x27e
+testing.Main(0x555cc8, 0x64c240, 0x0, 0x0, 0x64c240, ...)
+	/usr/local/go/src/pkg/testing/testing.go:404 +0xc6
+main.main()
+	github.com/t-yuki/gotracetools/traceback/_test/_testmain.go:47 +0x9c
