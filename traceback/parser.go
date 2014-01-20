@@ -2,7 +2,7 @@
 // For more details, see http://code.google.com/p/rog-go/
 //
 
-package parser
+package traceback
 
 import (
 	"bufio"
