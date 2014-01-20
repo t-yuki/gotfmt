@@ -41,3 +41,22 @@ func TestFilterGotest2(t *testing.T) {
 		t.Error(stacks)
 	}
 }
+
+func TestStripGopath1(t *testing.T) {
+	data, err := os.Open("testdata/data1.txt")
+	if err != nil {
+		panic(err)
+	}
+	stacks, err := ParseStacks(data)
+	if err != nil {
+		panic(err)
+	}
+	stacks = FilterGotest(stacks)
+	stacks = StripGopath(stacks)
+	if stacks[0].Calls[0].Source != "runtime/sema.goc" {
+		t.Fatal(stacks[0].Calls[0])
+	}
+	if stacks[0].Calls[5].Source != "github.com/t-yuki/mygosandbox/go2qfix/go2qfix_test.go" {
+		t.Fatal(stacks[0].Calls[5])
+	}
+}

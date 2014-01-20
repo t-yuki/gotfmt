@@ -1,12 +1,31 @@
 package traceback
 
 import (
+	"go/build"
 	"strings"
 )
 
+// StripGopath strips file path prefix listed in GOPATH or GOROOT of src.Calls.Source field.
+func StripGopath(srcs []*Stack) []*Stack {
+	dst := make([]*Stack, 0, len(srcs))
+	for _, src := range srcs {
+		s := *src
+		for i := range s.Calls {
+			c := &s.Calls[i]
+			for _, d := range build.Default.SrcDirs() {
+				c.Source = strings.TrimPrefix(c.Source, d+"/")
+			}
+			// a special value for official binary build
+			c.Source = strings.TrimPrefix(c.Source, "/usr/local/go/src/pkg/")
+		}
+		dst = append(dst, &s)
+	}
+	return dst
+}
+
 // FilterGotest excludes gotest related stacks and calls.
-func FilterGotest(src []*Stack) (dst []*Stack) {
-	dst = filterGotestStacks(src)
+func FilterGotest(srcs []*Stack) (dst []*Stack) {
+	dst = filterGotestStacks(srcs)
 	dst = filterGotestCalls(dst)
 	return dst
 }
