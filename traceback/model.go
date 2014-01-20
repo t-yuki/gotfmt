@@ -13,12 +13,13 @@ import (
 type StackStatus string
 
 const (
-	StackStatusChanReceive  = "chan receive"
-	StackStatusSemAcquire   = "semacquire"
-	StackStatusRunning      = "running"
-	StackStatusRunnable     = "runnable"
-	StackStatusSleep        = "sleep"
-	StackStatusFinalizerWat = "finalizer wait"
+	StackStatusChanReceive   = "chan receive"
+	StackStatusSemAcquire    = "semacquire"
+	StackStatusRunning       = "running"
+	StackStatusRunnable      = "runnable"
+	StackStatusSleep         = "sleep"
+	StackStatusFinalizerWait = "finalizer wait"
+	StackStatusSyscall       = "syscall"
 )
 
 // Call represents a function call.
