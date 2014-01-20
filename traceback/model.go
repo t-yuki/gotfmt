@@ -37,20 +37,22 @@ type Stack struct {
 }
 
 func Fprint(out io.Writer, stacks []*Stack) {
-	for i, s := range stacks {
-		if i != 0 {
-			fmt.Fprintln(out)
-		}
-		fmt.Fprintf(out, "goroutine %d [%s]\n", s.ID, s.Status)
-		maxwidth := int(0)
+	maxwidth := int(0)
+	for _, s := range stacks {
 		for _, c := range s.Calls {
 			if maxwidth < len(c.Func) {
 				maxwidth = len(c.Func)
 			}
 		}
+	}
+	for i, s := range stacks {
+		if i != 0 {
+			fmt.Fprintln(out)
+		}
+		fmt.Fprintf(out, "goroutine %d [%s]\n", s.ID, s.Status)
 		for _, c := range s.Calls {
 			dw := maxwidth - len(c.Func)
-			fmt.Fprintf(out, "  %s%s %s:%d\n", c.Func, strings.Repeat(" ", dw), c.Source, c.Line)
+			fmt.Fprintf(out, "  %s%s  %s:%d\n", c.Func, strings.Repeat(" ", dw), c.Source, c.Line)
 		}
 	}
 }

@@ -52,7 +52,7 @@ func TestExcludesGoroot1(t *testing.T) {
 		panic(err)
 	}
 	stacks = ExcludeGotest(stacks)
-	stacks = ExcludeGoroot(stacks)
+	stacks = ExcludeGoroot(stacks, true)
 	if len(stacks) != 1 {
 		t.Error(stacks)
 	}
@@ -75,14 +75,14 @@ func TestExcludesGoroot3(t *testing.T) {
 		panic(err)
 	}
 	stacks = ExcludeGotest(stacks)
-	stacks = ExcludeGoroot(stacks)
+	stacks = ExcludeGoroot(stacks, false)
 	if len(stacks) != 1 {
 		t.Error(stacks)
 	}
 	if stacks[0].ID != 10 {
 		t.Error(stacks[0])
 	}
-	if len(stacks[0].Calls) != 2 {
+	if len(stacks[0].Calls) != 1 {
 		t.Log(stacks[0])
 		t.Error(len(stacks[0].Calls))
 	}

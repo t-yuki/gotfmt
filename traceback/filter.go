@@ -68,7 +68,7 @@ func filterGotestCalls(srcs []*Stack) []*Stack {
 }
 
 // ExcludeGoroot filters stacks by excluding function calls placed in GOROOT.
-func ExcludeGoroot(srcs []*Stack) []*Stack {
+func ExcludeGoroot(srcs []*Stack, preserveOne bool) []*Stack {
 	dst := make([]*Stack, 0, len(srcs))
 	for _, src := range srcs {
 		s := *src
@@ -83,7 +83,11 @@ func ExcludeGoroot(srcs []*Stack) []*Stack {
 				continue
 			}
 			if i != 0 {
-				s.Calls = src.Calls[i-1:]
+				if preserveOne {
+					s.Calls = src.Calls[i-1:]
+				} else {
+					s.Calls = src.Calls[i:]
+				}
 			} else {
 				s.Calls = src.Calls
 			}
@@ -92,6 +96,17 @@ func ExcludeGoroot(srcs []*Stack) []*Stack {
 		if s.Calls != nil {
 			dst = append(dst, &s)
 		}
+	}
+	return dst
+}
+
+// ExcludeLowers filters calls of stacks by excluding function calls that is not the top of stack.
+func ExcludeLowers(srcs []*Stack) []*Stack {
+	dst := make([]*Stack, 0, len(srcs))
+	for _, src := range srcs {
+		s := *src
+		s.Calls = []Call{src.Calls[0]}
+		dst = append(dst, &s)
 	}
 	return dst
 }
