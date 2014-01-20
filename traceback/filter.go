@@ -72,6 +72,7 @@ func ExcludeGoroot(srcs []*Stack) []*Stack {
 	dst := make([]*Stack, 0, len(srcs))
 	for _, src := range srcs {
 		s := *src
+		s.Calls = nil
 		for i := range src.Calls {
 			c := &src.Calls[i]
 			if strings.HasPrefix(c.Source, build.Default.GOROOT+"/") {
@@ -88,7 +89,9 @@ func ExcludeGoroot(srcs []*Stack) []*Stack {
 			}
 			break
 		}
-		dst = append(dst, &s)
+		if s.Calls != nil {
+			dst = append(dst, &s)
+		}
 	}
 	return dst
 }

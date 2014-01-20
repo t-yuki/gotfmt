@@ -65,6 +65,29 @@ func TestExcludesGoroot1(t *testing.T) {
 	}
 }
 
+func TestExcludesGoroot3(t *testing.T) {
+	data, err := os.Open("testdata/data3.txt")
+	if err != nil {
+		panic(err)
+	}
+	stacks, err := ParseStacks(data)
+	if err != nil {
+		panic(err)
+	}
+	stacks = ExcludeGotest(stacks)
+	stacks = ExcludeGoroot(stacks)
+	if len(stacks) != 1 {
+		t.Error(stacks)
+	}
+	if stacks[0].ID != 10 {
+		t.Error(stacks[0])
+	}
+	if len(stacks[0].Calls) != 2 {
+		t.Log(stacks[0])
+		t.Error(len(stacks[0].Calls))
+	}
+}
+
 func TestTrimSourcePrefix1(t *testing.T) {
 	data, err := os.Open("testdata/data1.txt")
 	if err != nil {

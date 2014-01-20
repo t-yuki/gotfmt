@@ -8,7 +8,7 @@ Installation
 
 Just type the following to install the program and its dependencies:
 
-    $ go get github.com/t-yuki/gotracetools/...
+    $ go get -u github.com/t-yuki/gotracetools/...
 
 Usage
 -----
