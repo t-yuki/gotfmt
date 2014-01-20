@@ -1,0 +1,29 @@
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [chan receive]:
+testing.RunTests(0x559028, 0x6470a0, 0x1, 0x1, 0x1)
+        /usr/local/go/src/pkg/testing/testing.go:472 +0x8d5
+testing.Main(0x559028, 0x6470a0, 0x1, 0x1, 0x64f240, ...)
+        /usr/local/go/src/pkg/testing/testing.go:403 +0x84
+main.main()
+        github.com/t-yuki/mygosandbox/go2qfix/_test/_testmain.go:47 +0x9c
+
+goroutine 3 [semacquire]:
+sync.runtime_Syncsemacquire(0xc210054040)
+        /usr/local/go/src/pkg/runtime/sema.goc:257 +0xca
+sync.(*Cond).Wait(0xc210054030)
+        /usr/local/go/src/pkg/sync/cond.go:62 +0x89
+io.(*pipe).read(0xc210054000, 0xc210055000, 0x1000, 0x1000, 0x0, ...)
+        /usr/local/go/src/pkg/io/pipe.go:52 +0x245
+io.(*PipeReader).Read(0xc2100000d0, 0xc210055000, 0x1000, 0x1000, 0x41e1a9, ...)
+        /usr/local/go/src/pkg/io/pipe.go:134 +0x5f
+bufio.(*Scanner).Scan(0xc21004e0e0, 0x1000)
+        /usr/local/go/src/pkg/bufio/scan.go:165 +0x487
+github.com/t-yuki/mygosandbox/go2qfix.TestConvertEmpty(0xc210053000)
+        /home/sey/gopath/src/github.com/t-yuki/mygosandbox/go2qfix/go2qfix_test.go:16 +0x19f
+testing.tRunner(0xc210053000, 0x6470a0)
+        /usr/local/go/src/pkg/testing/testing.go:391 +0x8b
+created by testing.RunTests
+        /usr/local/go/src/pkg/testing/testing.go:471 +0x8b2
+exit status 2
+FAIL    github.com/t-yuki/mygosandbox/go2qfix   0.006s
