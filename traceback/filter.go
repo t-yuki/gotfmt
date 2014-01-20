@@ -5,8 +5,8 @@ import (
 	"strings"
 )
 
-// StripGopath strips file path prefix listed in GOPATH or GOROOT of src.Calls.Source field.
-func StripGopath(srcs []*Stack) []*Stack {
+// TrimSourcePrefix trims file path prefix listed in GOPATH or GOROOT of src.Calls.Source field.
+func TrimSourcePrefix(srcs []*Stack) []*Stack {
 	dst := make([]*Stack, 0, len(srcs))
 	for _, src := range srcs {
 		s := *src
@@ -23,8 +23,8 @@ func StripGopath(srcs []*Stack) []*Stack {
 	return dst
 }
 
-// FilterGotest excludes gotest related stacks and calls.
-func FilterGotest(srcs []*Stack) (dst []*Stack) {
+// ExcludeGotest filters stacks by excluding gotest related stacks and calls.
+func ExcludeGotest(srcs []*Stack) (dst []*Stack) {
 	dst = filterGotestStacks(srcs)
 	dst = filterGotestCalls(dst)
 	return dst
@@ -60,6 +60,32 @@ func filterGotestCalls(srcs []*Stack) []*Stack {
 				continue
 			}
 			s.Calls = src.Calls[0 : i+1]
+			break
+		}
+		dst = append(dst, &s)
+	}
+	return dst
+}
+
+// ExcludeGoroot filters stacks by excluding function calls placed in GOROOT.
+func ExcludeGoroot(srcs []*Stack) []*Stack {
+	dst := make([]*Stack, 0, len(srcs))
+	for _, src := range srcs {
+		s := *src
+		for i := range src.Calls {
+			c := &src.Calls[i]
+			if strings.HasPrefix(c.Source, build.Default.GOROOT+"/") {
+				continue
+			}
+			// a special value for official binary build
+			if strings.HasPrefix(c.Source, "/usr/local/go/src/pkg/") {
+				continue
+			}
+			if i != 0 {
+				s.Calls = src.Calls[i-1:]
+			} else {
+				s.Calls = src.Calls
+			}
 			break
 		}
 		dst = append(dst, &s)
