@@ -62,6 +62,8 @@ func ParseStacks(r io.Reader) ([]*Stack, error) {
 				}
 				if i := strings.LastIndex(line, " +"); i >= 1 {
 					call.Line, _ = strconv.Atoi(line[1:i])
+				} else {
+					call.Line, _ = strconv.Atoi(line[1:])
 				}
 			}
 			stack.Calls = append(stack.Calls, call)
