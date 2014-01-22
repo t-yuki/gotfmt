@@ -29,11 +29,7 @@ func ParseStacks(r io.Reader) ([]*Stack, error) {
 		stack.Status = StackStatus(strs[2])
 		for scanner.Scan() {
 			line := scanner.Text()
-			if line == "" {
-				// empty line signifies end of a stack
-				break
-			}
-			if strings.HasPrefix(line, "exit status") {
+			if endOfTraceback(line) {
 				break
 			}
 			if strings.Contains(line, "  ") {
@@ -91,4 +87,21 @@ func parseArgs(argList string) []uint64 {
 		args[i] = n
 	}
 	return args
+}
+
+func endOfTraceback(line string) bool {
+	if line == "" {
+		// empty line signifies end of a stack
+		return true
+	}
+	if strings.HasPrefix(line, "exit status") {
+		return true
+	}
+	if strings.HasPrefix(line, "FAIL") {
+		return true
+	}
+	if strings.IndexAny(line, "=-?") == 0 {
+		return true
+	}
+	return false
 }
