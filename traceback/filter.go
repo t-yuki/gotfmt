@@ -6,10 +6,10 @@ import (
 )
 
 // TrimSourcePrefix trims file path prefix listed in GOPATH or GOROOT of src.Calls.Source field.
-func TrimSourcePrefix(srcs []*Stack) []*Stack {
-	dst := make([]*Stack, 0, len(srcs))
+func TrimSourcePrefix(srcs []Stack) []Stack {
+	dst := make([]Stack, 0, len(srcs))
 	for _, src := range srcs {
-		s := *src
+		s := src
 		for i := range s.Calls {
 			c := &s.Calls[i]
 			for _, d := range build.Default.SrcDirs() {
@@ -18,20 +18,20 @@ func TrimSourcePrefix(srcs []*Stack) []*Stack {
 			// a special value for official binary build
 			c.Source = strings.TrimPrefix(c.Source, "/usr/local/go/src/pkg/")
 		}
-		dst = append(dst, &s)
+		dst = append(dst, s)
 	}
 	return dst
 }
 
 // ExcludeGotest filters stacks by excluding gotest related stacks and calls.
-func ExcludeGotest(srcs []*Stack) (dst []*Stack) {
+func ExcludeGotest(srcs []Stack) (dst []Stack) {
 	dst = filterGotestStacks(srcs)
 	dst = filterGotestCalls(dst)
 	return dst
 }
 
-func filterGotestStacks(src []*Stack) []*Stack {
-	dst := make([]*Stack, 0, len(src))
+func filterGotestStacks(src []Stack) []Stack {
+	dst := make([]Stack, 0, len(src))
 	for _, s := range src {
 		if len(s.Calls) < 2 {
 			dst = append(dst, s)
@@ -51,10 +51,10 @@ func filterGotestStacks(src []*Stack) []*Stack {
 	return dst
 }
 
-func filterGotestCalls(srcs []*Stack) []*Stack {
-	dst := make([]*Stack, 0, len(srcs))
+func filterGotestCalls(srcs []Stack) []Stack {
+	dst := make([]Stack, 0, len(srcs))
 	for _, src := range srcs {
-		s := *src
+		s := src
 		for i := len(src.Calls) - 1; i >= 0; i-- {
 			if strings.Contains(src.Calls[i].Source, "testing/testing.go") {
 				continue
@@ -62,16 +62,16 @@ func filterGotestCalls(srcs []*Stack) []*Stack {
 			s.Calls = src.Calls[0 : i+1]
 			break
 		}
-		dst = append(dst, &s)
+		dst = append(dst, s)
 	}
 	return dst
 }
 
 // ExcludeGoroot filters stacks by excluding function calls placed in GOROOT.
-func ExcludeGoroot(srcs []*Stack, preserveOne bool) []*Stack {
-	dst := make([]*Stack, 0, len(srcs))
+func ExcludeGoroot(srcs []Stack, preserveOne bool) []Stack {
+	dst := make([]Stack, 0, len(srcs))
 	for _, src := range srcs {
-		s := *src
+		s := src
 		s.Calls = nil
 		for i := range src.Calls {
 			c := &src.Calls[i]
@@ -94,19 +94,19 @@ func ExcludeGoroot(srcs []*Stack, preserveOne bool) []*Stack {
 			break
 		}
 		if s.Calls != nil {
-			dst = append(dst, &s)
+			dst = append(dst, s)
 		}
 	}
 	return dst
 }
 
 // ExcludeLowers filters calls of stacks by excluding function calls that is not the top of stack.
-func ExcludeLowers(srcs []*Stack) []*Stack {
-	dst := make([]*Stack, 0, len(srcs))
+func ExcludeLowers(srcs []Stack) []Stack {
+	dst := make([]Stack, 0, len(srcs))
 	for _, src := range srcs {
-		s := *src
+		s := src
 		s.Calls = []Call{src.Calls[0]}
-		dst = append(dst, &s)
+		dst = append(dst, s)
 	}
 	return dst
 }

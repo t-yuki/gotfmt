@@ -13,22 +13,41 @@ import (
 	"strings"
 )
 
-// ParseStacks parse stacktrace of go executables.
-func ParseStacks(r io.Reader) ([]*Stack, error) {
-	var stacks []*Stack
-	re := regexp.MustCompile(`goroutine (\d+) \[([\w ]+)\]:`)
-	scanner := bufio.NewScanner(r)
-	for scanner.Scan() {
-		line := scanner.Text()
-		stack := &Stack{}
-		strs := re.FindStringSubmatch(line)
+// ParseTraceback parse stacktrace of go executables.
+func ParseTraceback(r io.Reader) (*Traceback, error) {
+	trace := &Traceback{}
+	s := bufio.NewScanner(r)
+
+	stacks := make([]Stack, 0, 100)
+	re1 := regexp.MustCompile(`(panic|fatal error|SIG\w+):`)
+	re2 := regexp.MustCompile(`goroutine (\d+) \[([\w ]+)\]:`)
+	for s.Scan() {
+		line := s.Text()
+		if trace.Reason == "" {
+			strs := re1.FindStringSubmatch(line)
+			if strs != nil && strs[0] != "" && strs[1] != "" {
+				trace.Reason = line
+				for s.Scan() {
+					line := s.Text()
+					if line == "" {
+						// empty line signifies end of a stack
+						break
+					}
+					trace.Reason += "\n" + line
+				}
+				continue
+			}
+		}
+
+		strs := re2.FindStringSubmatch(line)
 		if strs == nil || strs[0] == "" || strs[1] == "" || strs[2] == "" {
 			continue
 		}
+		stack := Stack{}
 		stack.ID, _ = strconv.Atoi(strs[1])
 		stack.Status = StackStatus(strs[2])
-		for scanner.Scan() {
-			line := scanner.Text()
+		for s.Scan() {
+			line := s.Text()
 			if line == "" {
 				// empty line signifies end of a stack
 				break
@@ -49,10 +68,10 @@ func ParseStacks(r io.Reader) ([]*Stack, error) {
 				}
 			}
 			call.Func = strings.TrimPrefix(line, "created by ")
-			if !scanner.Scan() {
+			if !s.Scan() {
 				break
 			}
-			line = scanner.Text()
+			line = s.Text()
 			if strings.HasPrefix(line, "\t") || strings.HasPrefix(line, "        ") {
 				line = strings.TrimPrefix(line, "        ")
 				line = strings.TrimPrefix(line, "\t")
@@ -70,7 +89,8 @@ func ParseStacks(r io.Reader) ([]*Stack, error) {
 			stacks = append(stacks, stack)
 		}
 	}
-	return stacks, nil
+	trace.Stacks = stacks
+	return trace, nil
 }
 
 func parseArgs(argList string) []uint64 {

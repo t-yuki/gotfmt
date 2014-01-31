@@ -10,17 +10,19 @@ func ExampleParseStacks_data1() {
 	if err != nil {
 		panic(err)
 	}
-	stacks, err := ParseStacks(data)
+	trace, err := ParseTraceback(data)
 	if err != nil {
 		panic(err)
 	}
-	for _, s := range stacks {
+	fmt.Printf("%s\n", trace.Reason)
+	for _, s := range trace.Stacks {
 		fmt.Printf("%d %s\n", s.ID, s.Status)
 		for _, c := range s.Calls {
 			fmt.Printf("    %v\n", c)
 		}
 	}
 	// Output:
+	// fatal error: all goroutines are asleep - deadlock!
 	// 1 chan receive
 	//     {testing.RunTests /usr/local/go/src/pkg/testing/testing.go 472 [5607464 6582432 1 1 1]}
 	//     {testing.Main /usr/local/go/src/pkg/testing/testing.go 403 [5607464 6582432 1 1 6615616]}
@@ -41,17 +43,19 @@ func ExampleParseStacks_data2() {
 	if err != nil {
 		panic(err)
 	}
-	stacks, err := ParseStacks(data)
+	trace, err := ParseTraceback(data)
 	if err != nil {
 		panic(err)
 	}
-	for _, s := range stacks {
+	fmt.Printf("%s\n", trace.Reason)
+	for _, s := range trace.Stacks {
 		fmt.Printf("%d %s\n", s.ID, s.Status)
 		for _, c := range s.Calls {
 			fmt.Printf("    %v\n", c)
 		}
 	}
 	// Output:
+	// panic: test timed out after 1us
 	// 5 running
 	//     {runtime.panic /usr/local/go/src/pkg/runtime/panic.c 266 [5032096 833492317296]}
 	//     {testing.func·007 /usr/local/go/src/pkg/testing/testing.go 596 []}

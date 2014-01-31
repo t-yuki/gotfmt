@@ -5,6 +5,8 @@ import (
 	"github.com/t-yuki/gotracetools/traceback"
 	"io"
 	"os"
+	"os/signal"
+	"syscall"
 )
 
 var (
@@ -16,6 +18,8 @@ var (
 
 func main() {
 	flag.Parse()
+	sigquit := make(chan os.Signal, 1)
+	signal.Notify(sigquit, syscall.SIGQUIT)
 	convert(os.Stdin, os.Stdout)
 }
 
@@ -27,7 +31,11 @@ func convert(in io.Reader, out io.WriteCloser) {
 		*excludeGOROOT = true
 	}
 
-	stacks, _ := traceback.ParseStacks(in)
+	trace, err := traceback.ParseTraceback(in)
+	if err != nil {
+		panic(err)
+	}
+	stacks := trace.Stacks
 	stacks = traceback.ExcludeGotest(stacks)
 	if !*includeGOROOT {
 		stacks = traceback.ExcludeGoroot(stacks, !*excludeGOROOT)
@@ -36,10 +44,12 @@ func convert(in io.Reader, out io.WriteCloser) {
 		stacks = traceback.ExcludeLowers(stacks)
 	}
 	if *quickfix {
-		traceback.Fprint(out, stacks, traceback.PrintConfig{Quickfix: true})
+		trace.Stacks = stacks
+		traceback.Fprint(out, trace, traceback.PrintConfig{Quickfix: true})
 	} else {
 		stacks = traceback.TrimSourcePrefix(stacks)
-		traceback.Fprint(out, stacks, traceback.PrintConfig{})
+		trace.Stacks = stacks
+		traceback.Fprint(out, trace, traceback.PrintConfig{})
 	}
 	out.Close()
 }

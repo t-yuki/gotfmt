@@ -17,6 +17,11 @@ Usage
 
     $ go test -timeout=1us 2>&1 | gotb
 
+`got` runs `go test` with pretty stack trace texts:
+
+    $ got -timeout=1us
+    $ got -q | vim - -c :cb!
+
 Authors
 -------
 

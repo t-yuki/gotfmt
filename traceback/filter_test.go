@@ -10,11 +10,11 @@ func TestExcludesGotest1(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	stacks, err := ParseStacks(data)
+	trace, err := ParseTraceback(data)
 	if err != nil {
 		panic(err)
 	}
-	stacks = ExcludeGotest(stacks)
+	stacks := ExcludeGotest(trace.Stacks)
 	if len(stacks) != 1 {
 		t.Error(stacks)
 	}
@@ -32,10 +32,11 @@ func TestExcludesGotest2(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	stacks, err := ParseStacks(data)
+	trace, err := ParseTraceback(data)
 	if err != nil {
 		panic(err)
 	}
+	stacks := trace.Stacks
 	stacks = ExcludeGotest(stacks)
 	if len(stacks) != 0 {
 		t.Error(stacks)
@@ -47,10 +48,11 @@ func TestExcludesGoroot1(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	stacks, err := ParseStacks(data)
+	trace, err := ParseTraceback(data)
 	if err != nil {
 		panic(err)
 	}
+	stacks := trace.Stacks
 	stacks = ExcludeGotest(stacks)
 	stacks = ExcludeGoroot(stacks, true)
 	if len(stacks) != 1 {
@@ -70,10 +72,11 @@ func TestExcludesGoroot3(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	stacks, err := ParseStacks(data)
+	trace, err := ParseTraceback(data)
 	if err != nil {
 		panic(err)
 	}
+	stacks := trace.Stacks
 	stacks = ExcludeGotest(stacks)
 	stacks = ExcludeGoroot(stacks, false)
 	if len(stacks) != 1 {
@@ -93,10 +96,11 @@ func TestTrimSourcePrefix1(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	stacks, err := ParseStacks(data)
+	trace, err := ParseTraceback(data)
 	if err != nil {
 		panic(err)
 	}
+	stacks := trace.Stacks
 	stacks = ExcludeGotest(stacks)
 	stacks = TrimSourcePrefix(stacks)
 	if stacks[0].Calls[0].Source != "runtime/sema.goc" {

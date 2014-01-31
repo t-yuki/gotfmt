@@ -37,21 +37,30 @@ type Stack struct {
 	Calls  []Call
 }
 
+type Traceback struct {
+	Reason string
+	Stacks []Stack
+}
+
 type PrintConfig struct {
 	Quickfix      bool
 	OmitGoroutine bool
 }
 
-func Fprint(out io.Writer, stacks []*Stack, config PrintConfig) {
+func Fprint(out io.Writer, trace *Traceback, config PrintConfig) {
 	maxwidth := int(0)
-	for _, s := range stacks {
+	for _, s := range trace.Stacks {
 		for _, c := range s.Calls {
 			if maxwidth < len(c.Func) {
 				maxwidth = len(c.Func)
 			}
 		}
 	}
-	for i, s := range stacks {
+	if !config.Quickfix && trace.Reason != "" {
+		fmt.Fprintln(out, trace.Reason)
+		fmt.Fprintln(out)
+	}
+	for i, s := range trace.Stacks {
 		if i != 0 {
 			fmt.Fprintln(out)
 		}
