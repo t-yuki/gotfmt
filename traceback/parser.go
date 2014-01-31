@@ -48,11 +48,7 @@ func ParseTraceback(r io.Reader) (*Traceback, error) {
 		stack.Status = StackStatus(strs[2])
 		for s.Scan() {
 			line := s.Text()
-			if line == "" {
-				// empty line signifies end of a stack
-				break
-			}
-			if strings.HasPrefix(line, "exit status") {
+			if endOfTraceback(line) {
 				break
 			}
 			if strings.Contains(line, "  ") {
@@ -81,6 +77,8 @@ func ParseTraceback(r io.Reader) (*Traceback, error) {
 				}
 				if i := strings.LastIndex(line, " +"); i >= 1 {
 					call.Line, _ = strconv.Atoi(line[1:i])
+				} else {
+					call.Line, _ = strconv.Atoi(line[1:])
 				}
 			}
 			stack.Calls = append(stack.Calls, call)
@@ -109,4 +107,21 @@ func parseArgs(argList string) []uint64 {
 		args[i] = n
 	}
 	return args
+}
+
+func endOfTraceback(line string) bool {
+	if line == "" {
+		// empty line signifies end of a stack
+		return true
+	}
+	if strings.HasPrefix(line, "exit status") {
+		return true
+	}
+	if strings.HasPrefix(line, "FAIL") {
+		return true
+	}
+	if strings.IndexAny(line, "=-?") == 0 {
+		return true
+	}
+	return false
 }

@@ -20,7 +20,12 @@ Usage
 `got` runs `go test` with pretty stack trace texts:
 
     $ got -timeout=1us
-    $ got -q | vim - -c :cb!
+
+They can make quickfix list:
+
+    # .vimrc: auto FileType go set errorformat=%f:%l:\ %m
+    $ go test -timeout=3s 2>&1 | gotb -q | vim - -c :cb! -c :copen
+    $ got -q | vim - -c :cb! -c :copen
 
 Authors
 -------

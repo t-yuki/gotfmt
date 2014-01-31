@@ -20,6 +20,7 @@ const (
 	StackStatusSleep         = "sleep"
 	StackStatusFinalizerWait = "finalizer wait"
 	StackStatusSyscall       = "syscall"
+	StackStatusIOWait        = "IO Wait"
 )
 
 // Call represents a function call.
@@ -61,7 +62,7 @@ func Fprint(out io.Writer, trace *Traceback, config PrintConfig) {
 		fmt.Fprintln(out)
 	}
 	for i, s := range trace.Stacks {
-		if i != 0 {
+		if i != 0 && !config.Quickfix {
 			fmt.Fprintln(out)
 		}
 		if !config.OmitGoroutine && !config.Quickfix {
@@ -70,7 +71,7 @@ func Fprint(out io.Writer, trace *Traceback, config PrintConfig) {
 		for _, c := range s.Calls {
 			dw := maxwidth - len(c.Func)
 			if config.Quickfix {
-				msg := fmt.Sprintf("goroutine %d [%s]\n", s.ID, s.Status)
+				msg := fmt.Sprintf("goroutine %d [%s]", s.ID, s.Status)
 				fmt.Fprintf(out, "%s:%d: %s\n", c.Source, c.Line, msg)
 			} else {
 				fmt.Fprintf(out, "  %s%s  %s:%d\n", c.Func, strings.Repeat(" ", dw), c.Source, c.Line)

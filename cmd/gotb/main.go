@@ -13,7 +13,7 @@ var (
 	excludeGOROOT = flag.Bool("R", false, "exclude GOROOT functions completely")
 	includeGOROOT = flag.Bool("r", false, "include GOROOT functions")
 	topOnly       = flag.Bool("t", false, "print top functions only (implies `-R` when `r` == false)")
-	quickfix      = flag.Bool("q", false, "print with vim quickfix list format (implies `-t -R`). Hint: gotb -q | vim - -c :cb!")
+	quickfix      = flag.Bool("q", false, "print with vim quickfix list format (implies `-t -R`). Hint: gotb -q | vim - -c :cb! -c :copen")
 )
 
 func main() {
