@@ -10,7 +10,8 @@ func ExampleParseStacks_deadlock() {
 	// Output:
 	// Reason:fatal error: all goroutines are asleep - deadlock!
 	// ID:1 Status:chan receive Calls:3 Head:testing.RunTests
-	// ID:3 Status:chan receive Calls:3 Head:github.com/t-yuki/gotracetools/traceback/testdata.TestDeadlock
+	// ID:3 Status:chan receive (nil chan) Calls:3 Head:github.com/t-yuki/gotracetools/traceback/testdata.TestDeadlock
+	// ID:4 Status:chan send (nil chan) Calls:2 Head:github.com/t-yuki/gotracetools/traceback/testdata.func·001
 }
 
 func ExampleParseStacks_timeout() {

@@ -76,7 +76,7 @@ func parseReason(s *bufio.Scanner, line string) (reason string, ok bool) {
 	return reason, true
 }
 
-var stackRE = regexp.MustCompile(`goroutine (\d+) \[([\w ]+)\]:`)
+var stackRE = regexp.MustCompile(`goroutine (\d+) \[([\w ()]+)\]:`)
 
 func parseStack(s *bufio.Scanner, line string) (stack Stack, ok bool) {
 	strs := stackRE.FindStringSubmatch(line)

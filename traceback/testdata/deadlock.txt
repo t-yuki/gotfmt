@@ -2,19 +2,25 @@
 fatal error: all goroutines are asleep - deadlock!
 
 goroutine 1 [chan receive]:
-testing.RunTests(0x552350, 0x63d6e0, 0x2, 0x2, 0x1)
+testing.RunTests(0x552518, 0x63d6e0, 0x2, 0x2, 0x1)
 	/usr/local/go/src/pkg/testing/testing.go:472 +0x8d5
-testing.Main(0x552350, 0x63d6e0, 0x2, 0x2, 0x645280, ...)
+testing.Main(0x552518, 0x63d6e0, 0x2, 0x2, 0x645280, ...)
 	/usr/local/go/src/pkg/testing/testing.go:403 +0x84
 main.main()
 	github.com/t-yuki/gotracetools/traceback/testdata/_test/_testmain.go:49 +0x9c
 
-goroutine 3 [chan receive]:
-github.com/t-yuki/gotracetools/traceback/testdata.TestDeadlock(0xc210056000)
-	/home/t-yuki/gopath/src/github.com/t-yuki/gotracetools/traceback/testdata/deadlock_test.go:9 +0x46
-testing.tRunner(0xc210056000, 0x63d6e0)
+goroutine 3 [chan receive (nil chan)]:
+github.com/t-yuki/gotracetools/traceback/testdata.TestDeadlock(0xc21004e000)
+	/home/t-yuki/gopath/src/github.com/t-yuki/gotracetools/traceback/testdata/deadlock_test.go:12 +0x7e
+testing.tRunner(0xc21004e000, 0x63d6e0)
 	/usr/local/go/src/pkg/testing/testing.go:391 +0x8b
 created by testing.RunTests
 	/usr/local/go/src/pkg/testing/testing.go:471 +0x8b2
+
+goroutine 4 [chan send (nil chan)]:
+github.com/t-yuki/gotracetools/traceback/testdata.func·001()
+	/home/t-yuki/gopath/src/github.com/t-yuki/gotracetools/traceback/testdata/deadlock_test.go:10 +0x37
+created by github.com/t-yuki/gotracetools/traceback/testdata.TestDeadlock
+	/home/t-yuki/gopath/src/github.com/t-yuki/gotracetools/traceback/testdata/deadlock_test.go:11 +0x62
 exit status 2
 FAIL	github.com/t-yuki/gotracetools/traceback/testdata	0.011s
