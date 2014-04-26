@@ -1,0 +1,34 @@
+=== RUN TestTimeout
+panic: test timed out after 1us
+
+goroutine 4 [running]:
+runtime.panic(0x4ca2c0, 0xc2100383c0)
+	/usr/local/go/src/pkg/runtime/panic.c:266 +0xb6
+testing.func·007()
+	/usr/local/go/src/pkg/testing/testing.go:596 +0xd4
+created by time.goFunc
+	/usr/local/go/src/pkg/time/sleep.go:123 +0x47
+
+goroutine 1 [runnable]:
+syscall.Syscall(0x1, 0x1, 0xc21004b0a0, 0x14, 0x14, ...)
+	/usr/local/go/src/pkg/syscall/asm_linux_amd64.s:18 +0x5
+syscall.write(0x1, 0xc21004b0a0, 0x14, 0x14, 0x8, ...)
+	/usr/local/go/src/pkg/syscall/zsyscall_linux_amd64.go:1228 +0x72
+syscall.Write(0x1, 0xc21004b0a0, 0x14, 0x14, 0x2b2edb21dc50, ...)
+	/usr/local/go/src/pkg/syscall/syscall_unix.go:151 +0x5c
+os.(*File).write(0xc210000008, 0xc21004b0a0, 0x14, 0x14, 0x0, ...)
+	/usr/local/go/src/pkg/os/file_unix.go:194 +0x7b
+os.(*File).Write(0xc210000008, 0xc21004b0a0, 0x14, 0x14, 0x1, ...)
+	/usr/local/go/src/pkg/os/file.go:139 +0x98
+fmt.Fprintf(0x2b2edb07d300, 0xc210000008, 0x519f90, 0xb, 0x2b2edb21de10, ...)
+	/usr/local/go/src/pkg/fmt/print.go:221 +0xb0
+fmt.Printf(0x519f90, 0xb, 0x2b2edb21de10, 0x1, 0x1, ...)
+	/usr/local/go/src/pkg/fmt/print.go:229 +0x8e
+testing.RunTests(0x552350, 0x63d6e0, 0x2, 0x2, 0x1)
+	/usr/local/go/src/pkg/testing/testing.go:469 +0x86d
+testing.Main(0x552350, 0x63d6e0, 0x2, 0x2, 0x645280, ...)
+	/usr/local/go/src/pkg/testing/testing.go:403 +0x84
+main.main()
+	github.com/t-yuki/gotracetools/traceback/testdata/_test/_testmain.go:49 +0x9c
+exit status 2
+FAIL	github.com/t-yuki/gotracetools/traceback/testdata	0.011s

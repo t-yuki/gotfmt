@@ -1,0 +1,30 @@
+=== RUN TestTimeout
+panic: test timed out after 1s
+
+goroutine 5 [running]:
+runtime.panic(0x4ca2c0, 0xc2100383c0)
+	/usr/local/go/src/pkg/runtime/panic.c:266 +0xb6
+testing.func·007()
+	/usr/local/go/src/pkg/testing/testing.go:596 +0xd4
+created by time.goFunc
+	/usr/local/go/src/pkg/time/sleep.go:123 +0x47
+
+goroutine 1 [chan receive]:
+testing.RunTests(0x552350, 0x63d6e0, 0x2, 0x2, 0x1)
+	/usr/local/go/src/pkg/testing/testing.go:472 +0x8d5
+testing.Main(0x552350, 0x63d6e0, 0x2, 0x2, 0x645280, ...)
+	/usr/local/go/src/pkg/testing/testing.go:403 +0x84
+main.main()
+	github.com/t-yuki/gotracetools/traceback/testdata/_test/_testmain.go:49 +0x9c
+
+goroutine 4 [sleep]:
+time.Sleep(0xdf8475800)
+	/usr/local/go/src/pkg/runtime/time.goc:31 +0x31
+github.com/t-yuki/gotracetools/traceback/testdata.TestTimeout(0xc210056000)
+	/home/t-yuki/gopath/src/github.com/t-yuki/gotracetools/traceback/testdata/timeout_test.go:13 +0x31
+testing.tRunner(0xc210056000, 0x63d6f8)
+	/usr/local/go/src/pkg/testing/testing.go:391 +0x8b
+created by testing.RunTests
+	/usr/local/go/src/pkg/testing/testing.go:471 +0x8b2
+exit status 2
+FAIL	github.com/t-yuki/gotracetools/traceback/testdata	1.011s

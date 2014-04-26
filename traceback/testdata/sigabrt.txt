@@ -1,0 +1,54 @@
+=== RUN TestSIGABRT
+SIGABRT: abort
+PC=0x424dd1
+
+runtime.notetsleepg(0x649aa0, 0xffffffffffffffff)
+	/usr/local/go/src/pkg/runtime/lock_futex.c:190 +0x46 fp=0x2ba270d3ff48
+runtime.signal_recv(0x0)
+	/usr/local/go/src/pkg/runtime/sigqueue.goc:110 +0xe2 fp=0x2ba270d3ff70
+os/signal.loop()
+	/usr/local/go/src/pkg/os/signal/signal_unix.go:21 +0x1e fp=0x2ba270d3ffa0
+runtime.goexit()
+	/usr/local/go/src/pkg/runtime/proc.c:1394 fp=0x2ba270d3ffa8
+created by os/signal.init·1
+	/usr/local/go/src/pkg/os/signal/signal_unix.go:27 +0x31
+
+goroutine 1 [chan receive]:
+testing.RunTests(0x5548d8, 0x644740, 0x3, 0x3, 0x1)
+	/usr/local/go/src/pkg/testing/testing.go:472 +0x8d5
+testing.Main(0x5548d8, 0x644740, 0x3, 0x3, 0x649320, ...)
+	/usr/local/go/src/pkg/testing/testing.go:403 +0x84
+main.main()
+	github.com/t-yuki/gotracetools/traceback/testdata/_test/_testmain.go:51 +0x9c
+
+goroutine 4 [chan receive]:
+github.com/t-yuki/gotracetools/traceback/testdata.TestSIGABRT(0xc210056000)
+	/home/t-yuki/gopath/src/github.com/t-yuki/gotracetools/traceback/testdata/sigabrt_test.go:18 +0xda
+testing.tRunner(0xc210056000, 0x644758)
+	/usr/local/go/src/pkg/testing/testing.go:391 +0x8b
+created by testing.RunTests
+	/usr/local/go/src/pkg/testing/testing.go:471 +0x8b2
+
+rax     0xca
+rbx     0xc21002a0e8
+rcx     0xffffffffffffffff
+rdx     0x0
+rdi     0x649aa0
+rsi     0x0
+rbp     0xc210010000
+rsp     0x2ba270d3feb0
+r8      0x0
+r9      0x0
+r10     0x0
+r11     0x286
+r12     0x4fbe40
+r13     0x1a
+r14     0xb
+r15     0x2
+rip     0x424dd1
+rflags  0x286
+cs      0x33
+fs      0x0
+gs      0x0
+exit status 2
+FAIL	github.com/t-yuki/gotracetools/traceback/testdata	0.011s
