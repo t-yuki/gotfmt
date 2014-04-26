@@ -30,6 +30,7 @@ func processHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
+	trace.Stacks = traceback.TrimSourcePrefix(trace.Stacks)
 	b, err := json.Marshal(trace)
 	if err != nil {
 		log.Println(err)
