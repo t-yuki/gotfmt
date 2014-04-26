@@ -10,8 +10,9 @@
   </head>
   <body ng-controller="TracebackCtrl">
     <h1>Golang Stacktrace / Traceback Analyzer</h1>
-    Your godoc URL: <input type="url" ng-model="godocURL"></input>
-    <form method="POST" novalidate class="simple-form">
+    <p>Your godoc URL: <input type="url" ng-model="godocURL" size="32"></input></p>
+    <p><button ng-click="start()">start</button></p>
+    <form ng-show="showform" class="ng-hide" method="POST" novalidate class="simple-form">
       <textarea ng-model="traceback" cols="40" rows="10"></textarea>
       <button ng-click="analyze(traceback)">analyze</button>
     </form>
