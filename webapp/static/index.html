@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html ng-app="gotraceback">
-  <head>
-    <script src="angular.min.js"></script>
-    <script src="angular-cookies.min.js"></script>
-    <script src="bootstrap.min.js"></script>
-    <link rel="stylesheet" href="bootstrap.min.css">
+<head>
+<script src="angular.min.js"></script>
+<script src="angular-cookies.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<link rel="stylesheet" href="bootstrap.min.css">
 
-    <script src="gotraceback.js"></script>
-  </head>
-  <body ng-controller="TracebackCtrl">
-    <h1>Golang Stacktrace / Traceback Analyzer</h1>
-    <p>Your godoc URL: <input type="url" ng-model="godocURL" size="32"></input></p>
-    <p><button ng-click="start()">start</button></p>
-    <form ng-show="showform" class="ng-hide" method="POST" novalidate class="simple-form">
-      <textarea ng-model="traceback" cols="40" rows="10"></textarea>
-      <button ng-click="analyze(traceback)">analyze</button>
-    </form>
-    <div ng-model="result">
-	    <h2>Reason: {{result.Reason}}</h2>
-	    <ul ng-repeat="s in result.Stacks">
-		    <li>
-		    <h3>ID:{{s.ID}}: Status: {{s.Status}}</h3>
-		    <ul ng-repeat="c in s.Calls">
-			    <li><a href="{{godocURL}}/src/pkg/{{c.Source}}#L{{c.Line}}">{{c.Func}}</a> {{c.Source}} {{c.Line}} {{c.Args}}</li>
-		    </ul>
-		    </li>
-	    </ul>
-    </div>
-  </body>
+<script src="gotraceback.js"></script>
+</head>
+
+<body ng-controller="TracebackCtrl">
+<h1>Golang Stacktrace / Traceback Analyzer</h1>
+<p>Your godoc URL: <input type="url" ng-model="godocURL" size="32"></input></p>
+<p><button ng-click="start()">start</button></p>
+<form ng-show="showform" class="ng-hide" method="POST" novalidate class="simple-form">
+	<textarea ng-model="traceback" cols="40" rows="10"></textarea>
+	<button ng-click="analyze(traceback)">analyze</button>
+</form>
+<div ng-model="result" ng-show="result">
+	<h2>Reason: {{result.Reason}}</h2>
+	<ul ng-repeat="s in result.Stacks">
+		<li>
+		<h3>ID:{{s.ID}} Status: {{s.Status}}</h3>
+		<ul ng-repeat="c in s.Calls">
+			<li><a href="{{godocURL}}/src/pkg/{{c.Source}}#L{{c.Line}}">{{c.Func}}</a> {{c.Source}} {{c.Line}} {{c.Args}}</li>
+		</ul>
+		</li>
+	</ul>
+</div>
+<div id="footer">
+	Powered by <a href="https://github.com/t-yuki/gotracetools">github.com/t-yuki/gotracetools/</a>
+</div>
+</body>
 </html>
