@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html ng-app="gotraceback">
+  <head>
+    <script src="angular.min.js"></script>
+    <script src="gotraceback.js"></script>
+  </head>
+  <body ng-controller="TracebackCtrl">
+    <h1>Golang Stacktrace / Traceback Analyzer</h1>
+    <form method="POST" novalidate class="simple-form">
+      <textarea ng-model="traceback" cols="60" rows="20"></textarea>
+      <textarea ng-model="result" cols="60" rows="20"></textarea>
+      <button ng-click="analyze(traceback)">analyze</button>
+    </form>
+  </body>
+</html>
