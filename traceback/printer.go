@@ -1,7 +1,3 @@
-// This is a derivative work of roger peppe's stackgraph command.
-// For more details, see http://code.google.com/p/rog-go/
-//
-
 package traceback
 
 import (
@@ -9,39 +5,6 @@ import (
 	"io"
 	"strings"
 )
-
-type StackStatus string
-
-const (
-	StackStatusChanReceive   = "chan receive"
-	StackStatusSemAcquire    = "semacquire"
-	StackStatusRunning       = "running"
-	StackStatusRunnable      = "runnable"
-	StackStatusSleep         = "sleep"
-	StackStatusFinalizerWait = "finalizer wait"
-	StackStatusSyscall       = "syscall"
-	StackStatusIOWait        = "IO Wait"
-)
-
-// Call represents a function call.
-type Call struct {
-	Func   string
-	Source string
-	Line   int
-	Args   []uint64
-}
-
-// Stack represents the call stack of a goroutine.
-type Stack struct {
-	ID     int
-	Status StackStatus
-	Calls  []Call
-}
-
-type Traceback struct {
-	Reason string
-	Stacks []Stack
-}
 
 type PrintConfig struct {
 	Quickfix      bool
