@@ -35,6 +35,15 @@ func ExampleParseStacks_sigabrt() {
 	// ID:4 Status:chan receive Calls:3 Head:github.com/t-yuki/gotracetools/traceback/testdata.TestSIGABRT
 }
 
+func ExampleParseStacks_nil() {
+	printTrace("testdata/nil.txt")
+	// Output:
+	// Reason:panic: runtime error: invalid memory address or nil pointer dereference
+	// [signal 0xb code=0x1 addr=0x20 pc=0x4360a8]
+	// ID:4 Status:running Calls:3 Head:runtime.panic
+	// ID:1 Status:runnable Calls:3 Head:testing.RunTests
+}
+
 func ExampleParseStacks_go7725() {
 	// stack trace example from go/issues/7725
 	// http://code.google.com/p/go/issues/detail?id=7725

@@ -6,3 +6,5 @@ sigabrt.txt: sigabrt_test.go
 	go test -v -tags="testdata signal" -run=TestSIGABRT 2>>$@ 1>> $@ || exit 0
 deadlock.txt: deadlock_test.go
 	go test -v -tags=testdata -run=TestDeadlock 2>>$@ 1>> $@ || exit 0
+nil.txt: nil_test.go
+	go test -v -tags=testdata -run=TestNil 2>>$@ 1>> $@ || exit 0
