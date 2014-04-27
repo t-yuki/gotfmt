@@ -1,0 +1,2248 @@
+SIGSEGV: segmentation violation
+PC=0x4071dc
+
+goroutine 0 [idle]:
+scanblock(0x7f42b0080000, 0x12de700)
+	/home/dfc/go/src/pkg/runtime/mgc0.c:969 +0x8ec fp=0x7fffb7565df8
+markroot(0xc20800c900, 0x1007f4200000001)
+	/home/dfc/go/src/pkg/runtime/mgc0.c:1307 +0xd9 fp=0x7fffb7565e78
+runtime.parfordo(0xc20800c900)
+	/home/dfc/go/src/pkg/runtime/parfor.c:88 +0xa3 fp=0x7fffb7565ef0
+gc(0xc2089b1460)
+	/home/dfc/go/src/pkg/runtime/mgc0.c:2339 +0x1aa fp=0x7fffb7566018
+mgc(0xc20827cb40)
+	/home/dfc/go/src/pkg/runtime/mgc0.c:2285 +0x2e fp=0x7fffb7566028
+runtime.mcall(0x42b297)
+	/home/dfc/go/src/pkg/runtime/asm_amd64.s:181 +0x4b fp=0x7fffb7566038
+
+goroutine 12757 [garbage collection]:
+runtime.gc(0x7f4200000000)
+	/home/dfc/go/src/pkg/runtime/mgc0.c:2265 +0x1a3 fp=0xc2089b1470
+runtime.mallocgc(0x1500, 0xce31e0, 0x1)
+	/home/dfc/go/src/pkg/runtime/malloc.goc:204 +0x1d6 fp=0xc2089b14d8
+runtime.new(0xce31e0, 0x0)
+	/home/dfc/go/src/pkg/runtime/malloc.goc:825 +0x3b fp=0xc2089b14f8
+math/rand.NewSource(0x863e227d68306861, 0x0, 0x0)
+	/home/dfc/go/src/pkg/math/rand/rand.go:25 +0x38 fp=0xc2089b1530
+math/big.nat.probablyPrime(0xc208584870, 0x4, 0x9, 0x14, 0xda9a21)
+	/home/dfc/go/src/pkg/math/big/nat.go:1431 +0x5a3 fp=0xc2089b16b0
+math/big.(*Int).ProbablyPrime(0xc20864b0e0, 0x14, 0x7f42b1125000)
+	/home/dfc/go/src/pkg/math/big/int.go:721 +0x4a fp=0xc2089b16e8
+crypto/rsa.(*PrivateKey).Validate(0xc208b385a0, 0x0, 0x0)
+	/home/dfc/go/src/pkg/crypto/rsa/rsa.go:91 +0xd9 fp=0xc2089b17b0
+crypto/x509.ParsePKCS1PrivateKey(0xc208569040, 0x13e, 0x13e, 0xc208b385a0, 0x0, ...)
+	/home/dfc/go/src/pkg/crypto/x509/pkcs1.go:77 +0x4b5 fp=0xc2089b18b8
+crypto/tls.parsePrivateKey(0xc208569040, 0x13e, 0x13e, 0x0, 0x0, ...)
+	/home/dfc/go/src/pkg/crypto/tls/tls.go:259 +0x81 fp=0xc2089b1968
+crypto/tls.X509KeyPair(0xc2084a5acd, 0x0, 0x33, 0xc20865b7ed, 0x0, ...)
+	/home/dfc/go/src/pkg/crypto/tls/tls.go:213 +0x32c fp=0xc2089b1ae8
+launchpad.net/juju-core/environs/config.verifyKeyPair(0xc2084a5800, 0x2cd, 0x300, 0xc20865b600, 0x1ed, ...)
+	/home/dfc/src/launchpad.net/juju-core/environs/config/authkeys.go:82 +0x96 fp=0xc2089b1b78
+launchpad.net/juju-core/environs/config.Validate(0xc2082f2320, 0x0, 0x0, 0x0)
+	/home/dfc/src/launchpad.net/juju-core/environs/config/config.go:280 +0xfa1 fp=0xc2089b1e18
+launchpad.net/juju-core/environs/config.New(0x7f42b004b200, 0xc208b3ddd0, 0x7f42b004b208, 0x0, 0x0)
+	/home/dfc/src/launchpad.net/juju-core/environs/config/config.go:126 +0x1fc fp=0xc2089b1f80
+----- stack segment boundary -----
+launchpad.net/juju-core/environs/config.(*Config).Apply(0xc20864f2d0, 0xc208b3dda0, 0x4e, 0x0, 0x0)
+	/home/dfc/src/launchpad.net/juju-core/environs/config/config.go:687 +0x132 fp=0x7f42b004b270
+launchpad.net/juju-core/provider/dummy.(*environProvider).Validate(0x12e2220, 0xc20864f2d0, 0x0, 0x40e8a1, 0x0, ...)
+	/home/dfc/src/launchpad.net/juju-core/provider/dummy/environs.go:402 +0x2d2 fp=0x7f42b004b338
+launchpad.net/juju-core/provider/dummy.(*environProvider).newConfig(0x12e2220, 0xc20864f2d0, 0xc208664c00, 0x0, 0x0)
+	/home/dfc/src/launchpad.net/juju-core/provider/dummy/environs.go:380 +0x4c fp=0x7f42b004b390
+launchpad.net/juju-core/provider/dummy.(*environProvider).Open(0x12e2220, 0xc20864f2d0, 0x0, 0x0, 0x0, ...)
+	/home/dfc/src/launchpad.net/juju-core/provider/dummy/environs.go:422 +0xa9 fp=0x7f42b004b408
+launchpad.net/juju-core/provider/dummy.(*environProvider).Prepare(0x12e2220, 0x7f42b113d7c8, 0xc2086f5220, 0xc208664ed0, 0x0, ...)
+	/home/dfc/src/launchpad.net/juju-core/provider/dummy/environs.go:444 +0xa9 fp=0x7f42b004b450
+launchpad.net/juju-core/environs.prepare(0x7f42b113d7c8, 0xc2086f5220, 0xc208664ed0, 0x7f42b113da38, 0xc208bccd90, ...)
+	/home/dfc/src/launchpad.net/juju-core/environs/open.go:220 +0x28f fp=0x7f42b004b4e0
+launchpad.net/juju-core/environs.Prepare(0xc208664ed0, 0x7f42b113d7c8, 0xc2086f5220, 0x7f42b113d770, 0xc208627d20, ...)
+	/home/dfc/src/launchpad.net/juju-core/environs/open.go:197 +0x8b4 fp=0x7f42b004b638
+launchpad.net/juju-core/environs.PrepareFromName(0xdf3510, 0x8, 0x7f42b113d7c8, 0xc2086f5220, 0x7f42b113d770, ...)
+	/home/dfc/src/launchpad.net/juju-core/environs/open.go:145 +0xf9 fp=0x7f42b004b698
+launchpad.net/juju-core/juju/testing.(*JujuConnSuite).setUpConn(0xc2080997a8, 0xc208b19a20)
+	/home/dfc/src/launchpad.net/juju-core/juju/testing/conn.go:200 +0x8f7 fp=0x7f42b004b868
+launchpad.net/juju-core/juju/testing.(*JujuConnSuite).Reset(0xc2080997a8, 0xc208b19a20)
+	/home/dfc/src/launchpad.net/juju-core/juju/testing/conn.go:98 +0x49 fp=0x7f42b004b880
+launchpad.net/juju-core/worker/uniter_test.(*UniterSuite).Reset(0xc2080997a0, 0xc208b19a20)
+	/home/dfc/src/launchpad.net/juju-core/worker/uniter/uniter_test.go:103 +0x3d fp=0x7f42b004b898
+launchpad.net/juju-core/worker/uniter_test.funcﾂｷ027()
+	/home/dfc/src/launchpad.net/juju-core/worker/uniter/uniter_test.go:1087 +0x1df fp=0x7f42b004b918
+launchpad.net/juju-core/worker/uniter_test.(*UniterSuite).runUniterTests(0xc2080997a0, 0xc208b19a20, 0x12e3b00, 0x5, 0x5)
+	/home/dfc/src/launchpad.net/juju-core/worker/uniter/uniter_test.go:1087 +0x1f7 fp=0x7f42b004ba40
+launchpad.net/juju-core/worker/uniter_test.(*UniterSuite).TestUniterSteadyStateUpgrade(0xc2080997a0, 0xc208b19a20)
+	/home/dfc/src/launchpad.net/juju-core/worker/uniter/uniter_test.go:657 +0x58 fp=0x7f42b004ba70
+runtime.call16(0xda7a30, 0xc2088fd110)
+	/home/dfc/go/src/pkg/runtime/asm_amd64.s:341 +0x32 fp=0x7f42b004ba88
+reflect.Value.call(0xda72e0, 0xc2080997a0, 0x0, 0x4938, 0xdb89d0, ...)
+	/home/dfc/go/src/pkg/reflect/value.go:563 +0x1151 fp=0x7f42b004bdc8
+reflect.Value.Call(0xda72e0, 0xc2080997a0, 0x0, 0x4938, 0xc20890f840, ...)
+	/home/dfc/go/src/pkg/reflect/value.go:411 +0xd7 fp=0x7f42b004be30
+launchpad.net/gocheck.funcﾂｷ006(0xc208b19a20)
+	/home/dfc/src/launchpad.net/gocheck/gocheck.go:735 +0x3ad fp=0x7f42b004bf78
+launchpad.net/gocheck.funcﾂｷ004()
+	/home/dfc/src/launchpad.net/gocheck/gocheck.go:630 +0x8f fp=0x7f42b004bfa8
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b004bfb0
+created by launchpad.net/gocheck.(*suiteRunner).forkCall
+	/home/dfc/src/launchpad.net/gocheck/gocheck.go:631 +0x246
+
+goroutine 16 [chan receive, 1 minutes]:
+runtime.park(0x413200, 0xc208141130, 0x12d788d)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0xc2080c1c38
+runtime.parkunlock(0xc208141130, 0x12d788d)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0xc2080c1c58
+chanrecv(0xaece20, 0xc2081410e0, 0xc2080c1e00, 0x43db01, 0x0)
+	/home/dfc/go/src/pkg/runtime/chan.goc:269 +0x4e8 fp=0xc2080c1cb8
+runtime.chanrecv1(0xaece20, 0xc2081410e0, 0xc2080c1e00)
+	/home/dfc/go/src/pkg/runtime/chan.goc:354 +0x38 fp=0xc2080c1ce8
+testing.RunTests(0xfb4890, 0x12d0730, 0x1, 0x1, 0x1)
+	/home/dfc/go/src/pkg/testing/testing.go:504 +0x917 fp=0xc2080c1e70
+testing.Main(0xfb4890, 0x12d0730, 0x1, 0x1, 0x12ec040, ...)
+	/home/dfc/go/src/pkg/testing/testing.go:435 +0x87 fp=0xc2080c1ef8
+main.main()
+	/tmp/go-build138022789/launchpad.net/juju-core/worker/uniter/_test/_testmain.go:47 +0x9c fp=0xc2080c1f50
+runtime.main()
+	/home/dfc/go/src/pkg/runtime/proc.c:243 +0x11a fp=0xc2080c1fa8
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0xc2080c1fb0
+created by _rt0_go
+	/home/dfc/go/src/pkg/runtime/asm_amd64.s:97 +0x120
+
+goroutine 17 [syscall]:
+runtime.notetsleepg(0x7f42b0fc4f68, 0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/lock_futex.c:198 +0x46 fp=0x7f42b0fc4f40
+runtime.MHeap_Scavenger()
+	/home/dfc/go/src/pkg/runtime/mheap.c:531 +0xa3 fp=0x7f42b0fc4fa8
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fc4fb0
+created by runtime.main
+	/home/dfc/go/src/pkg/runtime/proc.c:203
+
+goroutine 18 [GC sweep wait]:
+runtime.park(0x413200, 0x12de9e0, 0x12dae76)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fb5f70
+runtime.parkunlock(0x12de9e0, 0x12dae76)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0fb5f90
+bgsweep()
+	/home/dfc/go/src/pkg/runtime/mgc0.c:1934 +0x8a fp=0x7f42b0fb5fa8
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fb5fb0
+created by runtime.gc
+	/home/dfc/go/src/pkg/runtime/mgc0.c:2205
+
+goroutine 19 [finalizer wait]:
+runtime.park(0x413200, 0x12de9b8, 0x12db05c)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fc3f18
+runtime.parkunlock(0x12de9b8, 0x12db05c)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0fc3f38
+runfinq()
+	/home/dfc/go/src/pkg/runtime/mgc0.c:2573 +0xbf fp=0x7f42b0fc3fa8
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fc3fb0
+created by runtime.gc
+	/home/dfc/go/src/pkg/runtime/mgc0.c:2205
+
+goroutine 20 [syscall, 1 minutes]:
+runtime.notetsleepg(0x12e21e0, 0xffffffffffffffff)
+	/home/dfc/go/src/pkg/runtime/lock_futex.c:198 +0x46 fp=0x7f42b0fc2f50
+runtime.signal_recv(0x0)
+	/home/dfc/go/src/pkg/runtime/sigqueue.goc:110 +0xea fp=0x7f42b0fc2f78
+os/signal.loop()
+	/home/dfc/go/src/pkg/os/signal/signal_unix.go:21 +0x1e fp=0x7f42b0fc2fa8
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fc2fb0
+created by os/signal.initﾂｷ1
+	/home/dfc/go/src/pkg/os/signal/signal_unix.go:27 +0x32
+
+goroutine 23 [chan receive]:
+runtime.park(0x413200, 0xc208140dd0, 0x12d788d)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fc1eb8
+runtime.parkunlock(0xc208140dd0, 0x12d788d)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0fc1ed8
+chanrecv(0xaecee0, 0xc208140d80, 0x7f42b0fc1f90, 0xfd9101, 0x7f42b0fc1f80)
+	/home/dfc/go/src/pkg/runtime/chan.goc:269 +0x4e8 fp=0x7f42b0fc1f38
+runtime.chanrecv2(0xaecee0, 0xc208140d80, 0x7f42b0fc1f90, 0x987e00)
+	/home/dfc/go/src/pkg/runtime/chan.goc:360 +0x3e fp=0x7f42b0fc1f68
+launchpad.net/juju-core/provider/dummy.funcﾂｷ001()
+	/home/dfc/src/launchpad.net/juju-core/provider/dummy/environs.go:204 +0x58 fp=0x7f42b0fc1fa8
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fc1fb0
+created by launchpad.net/juju-core/provider/dummy.initﾂｷ1
+	/home/dfc/src/launchpad.net/juju-core/provider/dummy/environs.go:206 +0xd7
+
+goroutine 24 [chan receive]:
+runtime.park(0x413200, 0xc208141310, 0x12d78b4)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fc0bf0
+runtime.parkunlock(0xc208141310, 0x12d78b4)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0fc0c10
+chanrecv(0xaec700, 0xc2081412c0, 0x0, 0xc208b19a01, 0x0)
+	/home/dfc/go/src/pkg/runtime/chan.goc:299 +0x1d8 fp=0x7f42b0fc0c70
+runtime.chanrecv1(0xaec700, 0xc2081412c0, 0x0)
+	/home/dfc/go/src/pkg/runtime/chan.goc:354 +0x38 fp=0x7f42b0fc0ca0
+launchpad.net/gocheck.(*suiteRunner).runTest(0xc2082545b0, 0xc208051a00, 0xc208d3f1e0)
+	/home/dfc/src/launchpad.net/gocheck/gocheck.go:773 +0x5a fp=0x7f42b0fc0cc8
+launchpad.net/gocheck.(*suiteRunner).run(0xc2082545b0, 0xc2080997a0)
+	/home/dfc/src/launchpad.net/gocheck/gocheck.go:585 +0x204 fp=0x7f42b0fc0d38
+launchpad.net/gocheck.Run(0xda72e0, 0xc2080997a0, 0xc2080744c0, 0xc2080c8a00)
+	/home/dfc/src/launchpad.net/gocheck/run.go:76 +0x49 fp=0x7f42b0fc0d60
+launchpad.net/gocheck.RunAll(0xc2080744c0, 0xc2080744c0)
+	/home/dfc/src/launchpad.net/gocheck/run.go:68 +0xc1 fp=0x7f42b0fc0df0
+launchpad.net/gocheck.TestingT(0xc20804e5a0)
+	/home/dfc/src/launchpad.net/gocheck/run.go:56 +0x2eb fp=0x7f42b0fc0ed0
+launchpad.net/juju-core/testing.MgoTestPackageSsl(0xc20804e5a0, 0x533c9e01)
+	/home/dfc/src/launchpad.net/juju-core/testing/mgo.go:216 +0x103 fp=0x7f42b0fc0f40
+launchpad.net/juju-core/testing.MgoTestPackage(0xc20804e5a0)
+	/home/dfc/src/launchpad.net/juju-core/testing/mgo.go:208 +0x2c fp=0x7f42b0fc0f58
+launchpad.net/juju-core/worker/uniter_test.TestPackage(0xc20804e5a0)
+	/home/dfc/src/launchpad.net/juju-core/worker/uniter/uniter_test.go:49 +0x27 fp=0x7f42b0fc0f68
+testing.tRunner(0xc20804e5a0, 0x12d0730)
+	/home/dfc/go/src/pkg/testing/testing.go:422 +0x8b fp=0x7f42b0fc0f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fc0fa0
+created by testing.RunTests
+	/home/dfc/go/src/pkg/testing/testing.go:503 +0x8cf
+
+goroutine 25 [syscall]:
+syscall.Syscall(0x0, 0x5, 0xc20807b000, 0x1000, 0x59, ...)
+	/home/dfc/go/src/pkg/syscall/asm_linux_amd64.s:18 +0x5 fp=0x7f42b0fbf8e8
+syscall.read(0x5, 0xc20807b000, 0x1000, 0x1000, 0x59, ...)
+	/home/dfc/go/src/pkg/syscall/zsyscall_linux_amd64.go:838 +0x8a fp=0x7f42b0fbf938
+syscall.Read(0x5, 0xc20807b000, 0x1000, 0x1000, 0x59, ...)
+	/home/dfc/go/src/pkg/syscall/syscall_unix.go:135 +0x6e fp=0x7f42b0fbf978
+os.(*File).read(0xc20803a1a8, 0xc20807b000, 0x1000, 0x1000, 0x59, ...)
+	/home/dfc/go/src/pkg/os/file_unix.go:178 +0x74 fp=0x7f42b0fbf9b8
+os.(*File).Read(0xc20803a1a8, 0xc20807b000, 0x1000, 0x1000, 0x59, ...)
+	/home/dfc/go/src/pkg/os/file.go:95 +0xb0 fp=0x7f42b0fbfa10
+bufio.(*Reader).fill(0xc2081413e0)
+	/home/dfc/go/src/pkg/bufio/bufio.go:92 +0x119 fp=0x7f42b0fbfaa8
+bufio.(*Reader).ReadSlice(0xc2081413e0, 0xc20807b00a, 0x0, 0x0, 0x0, ...)
+	/home/dfc/go/src/pkg/bufio/bufio.go:275 +0x25c fp=0x7f42b0fbfb68
+bufio.(*Reader).ReadBytes(0xc2081413e0, 0xc20000000a, 0x0, 0x0, 0x0, ...)
+	/home/dfc/go/src/pkg/bufio/bufio.go:356 +0xfb fp=0x7f42b0fbfcb8
+bufio.(*Reader).ReadString(0xc2081413e0, 0xdb510a, 0x0, 0x0, 0x0, ...)
+	/home/dfc/go/src/pkg/bufio/bufio.go:396 +0x79 fp=0x7f42b0fbfcf8
+launchpad.net/juju-core/testing.readLines(0xc20812b530, 0xc, 0x7f42b1135450, 0xc20803a1a8, 0x14, ...)
+	/home/dfc/src/launchpad.net/juju-core/testing/mgo.go:235 +0xd7 fp=0x7f42b0fbfea0
+launchpad.net/juju-core/testing.funcﾂｷ005()
+	/home/dfc/src/launchpad.net/juju-core/testing/mgo.go:155 +0x1b9 fp=0x7f42b0fbffa8
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fbffb0
+created by launchpad.net/juju-core/testing.(*MgoInstance).run
+	/home/dfc/src/launchpad.net/juju-core/testing/mgo.go:167 +0x7d9
+
+goroutine 2144 [select]:
+runtime.park(0x41d310, 0xc2085bc9c0, 0x12d7927)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fbee90
+selectgo(0x7f42b0fbef40)
+	/home/dfc/go/src/pkg/runtime/chan.goc:806 +0x3a0 fp=0x7f42b0fbef20
+runtime.selectgo(0xc2085bc9c0)
+	/home/dfc/go/src/pkg/runtime/chan.goc:649 +0x12 fp=0x7f42b0fbef40
+launchpad.net/gocheck.(*resultTracker)._loopRoutine(0xc208050000)
+	/home/dfc/src/launchpad.net/gocheck/gocheck.go:437 +0x30f fp=0x7f42b0fbefa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fbefa8
+created by launchpad.net/gocheck.(*resultTracker).start
+	/home/dfc/src/launchpad.net/gocheck/gocheck.go:417 +0x2f
+
+goroutine 3408 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8591ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8591f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8591f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8591f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208236700)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8591fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8591fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12669 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0f97d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0f97d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0f97db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0f97dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc2084ad960, 0xc2084ad901)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0f97f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0f97fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 7375 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8599ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8599f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8599f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8599f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208a69100)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8599fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8599fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 17 [syscall, 1 minutes]:
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fb1fb0
+
+goroutine 6615 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b007eef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b007ef10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b007ef58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b007ef70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20895ab80)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b007efa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b007efa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 34 [syscall]:
+runtime.notetsleepg(0x12e22f8, 0xe30ddd)
+	/home/dfc/go/src/pkg/runtime/lock_futex.c:198 +0x46 fp=0x7f42b0fb0f58
+timerproc()
+	/home/dfc/go/src/pkg/runtime/time.goc:248 +0xb3 fp=0x7f42b0fb0fa8
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fb0fb0
+created by addtimer
+	/home/dfc/go/src/pkg/runtime/time.goc:103
+
+goroutine 6234 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a85e6ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a85e6f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a85e6f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a85e6f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa6980)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a85e6fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a85e6fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 3418 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b006fef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b006ff10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b006ff58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b006ff70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20816f700)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b006ffa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b006ffa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 7029 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fabef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0fabf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0fabf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0fabf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208577900)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0fabfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fabfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 7588 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fbdef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0fbdf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0fbdf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0fbdf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20895bc00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0fbdfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fbdfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 3735 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8575ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8575f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8575f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8575f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20895a680)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8575fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8575fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12665 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0048d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0048d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0048db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0048dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc2084ac460, 0xc2084ac401)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0048f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0048fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 12748 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0052d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0052d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0052db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0052dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc2088e6a80, 0xc2088e6a01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0052f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0052fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 3362 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8578ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8578f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8578f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8578f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208576180)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8578fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8578fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12759 [select]:
+runtime.park(0x41d310, 0xc2086395c0, 0x12d7927)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fa3e40
+selectgo(0x7f42b0fa3ef0)
+	/home/dfc/go/src/pkg/runtime/chan.goc:806 +0x3a0 fp=0x7f42b0fa3ed0
+runtime.selectgo(0xc2086395c0)
+	/home/dfc/go/src/pkg/runtime/chan.goc:649 +0x12 fp=0x7f42b0fa3ef0
+labix.org/v2/mgo.(*mongoCluster).syncServersLoop(0xc208928380)
+	/home/dfc/src/labix.org/v2/mgo/cluster.go:360 +0x549 fp=0x7f42b0fa3fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fa3fa8
+created by labix.org/v2/mgo.newCluster
+	/home/dfc/src/labix.org/v2/mgo/cluster.go:69 +0xff
+
+goroutine 13098 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8581ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8581f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8581f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8581f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20829db00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8581fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8581fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 5457 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8569ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8569f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8569f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8569f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2080c8900)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8569fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8569fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 3192 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b006aef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b006af10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b006af58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b006af70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20839be00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b006afa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b006afa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12686 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a84f4d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a84f4d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a84f4db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a84f4dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208670380, 0xc208670301)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42a84f4f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a84f4fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 11525 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8519ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8519f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8519f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8519f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20887c300)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8519fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8519fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 7817 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0015ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0015f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0015f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0015f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20887dc80)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0015fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0015fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 6625 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0035ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0035f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0035f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0035f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208a69080)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0035fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0035fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 3745 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8589ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8589f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8589f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8589f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208311280)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8589fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8589fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12602 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a85dfef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a85dff10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a85dff58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a85dff70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa7b00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a85dffa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a85dffa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 4603 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a857def0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a857df10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a857df58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a857df70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2080c8800)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a857dfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a857dfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 13067 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8580d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8580d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8580db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8580dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208632e00, 0xc208632e01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42a8580f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8580fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 12616 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0071d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0071d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0071db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0071dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208bcf960, 0xc208bcf901)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0071f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0071fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 12779 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0044d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0044d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0044db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0044dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc20866c1c0, 0xc20866c101)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0044f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0044fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 8430 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b005bef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b005bf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b005bf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b005bf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20895b180)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b005bfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b005bfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 13079 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0041d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0041d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0041db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0041dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208671340, 0xc208671301)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0041f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0041fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 13359 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b002ae70
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b002ae90
+runtime.tsleep(0x1dcd6500, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b002aed8
+time.Sleep(0x1dcd6500)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b002aef0
+labix.org/v2/mgo.(*mongoCluster).syncServersLoop(0xc20866cc40)
+	/home/dfc/src/labix.org/v2/mgo/cluster.go:337 +0x244 fp=0x7f42b002afa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b002afa8
+created by labix.org/v2/mgo.newCluster
+	/home/dfc/src/labix.org/v2/mgo/cluster.go:69 +0xff
+
+goroutine 12705 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b005cef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b005cf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b005cf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b005cf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2087eeb00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b005cfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b005cfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 5297 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0029ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0029f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0029f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0029f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208a69600)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0029fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0029fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 9066 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fafef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0faff10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0faff58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0faff70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208d0d900)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0faffa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0faffa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 3884 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8574ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8574f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8574f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8574f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208310580)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8574fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8574fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 4212 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fbaef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0fbaf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0fbaf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0fbaf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208a68900)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0fbafa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fbafa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 3182 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a857bef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a857bf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a857bf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a857bf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20895b780)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a857bfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a857bfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 11535 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0022ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0022f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0022f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0022f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20829c900)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0022fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0022fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12658 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fb7ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0fb7f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0fb7f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0fb7f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2087eed00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0fb7fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fb7fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 7532 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a84feef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a84fef10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a84fef58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a84fef70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2087ee680)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a84fefa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a84fefa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 13355 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fa2e70
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0fa2e90
+runtime.tsleep(0x1dcd6500, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0fa2ed8
+time.Sleep(0x1dcd6500)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0fa2ef0
+labix.org/v2/mgo.(*mongoCluster).syncServersLoop(0xc2086710a0)
+	/home/dfc/src/labix.org/v2/mgo/cluster.go:337 +0x244 fp=0x7f42b0fa2fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fa2fa8
+created by labix.org/v2/mgo.newCluster
+	/home/dfc/src/labix.org/v2/mgo/cluster.go:69 +0xff
+
+goroutine 12775 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0018d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0018d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0018db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0018dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc20893c540, 0xc20893c501)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0018f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0018fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 10809 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b007aef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b007af10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b007af58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b007af70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208782200)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b007afa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b007afa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 4849 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b000eef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b000ef10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b000ef58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b000ef70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20895a600)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b000efa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b000efa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12627 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0051d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0051d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0051db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0051dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc2088e6fc0, 0xc2088e6f01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0051f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0051fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 13075 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b001ad50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b001ad70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b001adb8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b001add0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208331880, 0xc208331801)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b001af98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b001afa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 12767 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0021d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0021d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0021db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0021dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208bce000, 0xc208bce001)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0021f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0021fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 6019 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8577ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8577f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8577f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8577f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa6680)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8577fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8577fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12712 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8561d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8561d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8561db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8561dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc20838fea0, 0xc20838fe01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42a8561f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8561fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 11881 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0032ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0032f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0032f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0032f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20887cd80)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0032fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0032fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 4895 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0031ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0031f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0031f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0031f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa6780)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0031fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0031fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 13062 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b004fd50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b004fd70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b004fdb8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b004fdd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc2084f3a40, 0xc2084f3a01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b004ff98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b004ffa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 12209 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0069ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0069f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0069f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0069f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20829dd80)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0069fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0069fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 7197 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a858aef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a858af10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a858af58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a858af70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2087ee280)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a858afa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a858afa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12674 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8502d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8502d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8502db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8502dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208485340, 0xc208485301)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42a8502f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8502fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 12622 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a858cd50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a858cd70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a858cdb8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a858cdd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc2088e6540, 0xc2088e6501)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42a858cf98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a858cfa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 3838 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b001bef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b001bf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b001bf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b001bf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20895b600)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b001bfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b001bfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 11181 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a85e0ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a85e0f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a85e0f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a85e0f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20829d180)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a85e0fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a85e0fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 13358 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0000d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0000d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0000db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0000dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc2086717a0, 0xc208671701)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0000f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0000fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 12612 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a84f7d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a84f7d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a84f7db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a84f7dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208bced20, 0xc208bced01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42a84f7f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a84f7fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 8420 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a85e2ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a85e2f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a85e2f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a85e2f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2087eec00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a85e2fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a85e2fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 9304 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0042ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0042f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0042f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0042f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20829cc80)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0042fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0042fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 3616 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b001cef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b001cf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b001cf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b001cf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20829d000)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b001cfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b001cfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12593 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a857cd50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a857cd70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a857cdb8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a857cdd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208330a80, 0xc208330a01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42a857cf98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a857cfa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 8626 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0013ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0013f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0013f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0013f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2087ee800)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0013fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0013fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12756 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a85e3d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a85e3d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a85e3db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a85e3dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc20893cfc0, 0xc20893cf01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42a85e3f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a85e3fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 12742 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8595ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8595f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8595f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8595f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208d0cd80)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8595fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8595fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 5103 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8573ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8573f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8573f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8573f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208576980)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8573fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8573fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 7827 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a859bef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a859bf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a859bf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a859bf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2087ee600)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a859bfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a859bfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 5093 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8584ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8584f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8584f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8584f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa6800)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8584fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8584fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 8841 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a85e7ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a85e7f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a85e7f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a85e7f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2087ef680)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a85e7fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a85e7fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 6973 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8579ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8579f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8579f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8579f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20816e980)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8579fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8579fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 3606 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a858bef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a858bf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a858bf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a858bf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa6b80)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a858bfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a858bfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12648 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b002cef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b002cf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b002cf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b002cf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208d0cc80)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b002cfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b002cfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12798 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0057ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0057f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0057f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0057f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20887c500)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0057fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0057fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 3002 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0074ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0074f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0074f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0074f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208576a80)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0074fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0074fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 3894 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a856bef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a856bf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a856bf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a856bf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208237400)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a856bfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a856bfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 2146 [IO wait]:
+runtime.park(0x427350, 0x7f42b113cef0, 0x12d7396)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fa1c90
+netpollblock(0x7f42b113cec8, 0x72)
+	/home/dfc/go/src/pkg/runtime/netpoll.goc:349 +0x130 fp=0x7f42b0fa1cc0
+net.runtime_pollWait(0x7f42b113cec8, 0x72, 0x0)
+	/home/dfc/go/src/pkg/runtime/netpoll.goc:146 +0x66 fp=0x7f42b0fa1cd8
+net.(*pollDesc).Wait(0xc208254680, 0x72, 0x0, 0x0)
+	/home/dfc/go/src/pkg/net/fd_poll_runtime.go:84 +0x46 fp=0x7f42b0fa1cf8
+net.(*pollDesc).WaitRead(0xc208254680, 0x0, 0x0)
+	/home/dfc/go/src/pkg/net/fd_poll_runtime.go:89 +0x42 fp=0x7f42b0fa1d20
+net.(*netFD).accept(0xc208254620, 0xfb49c8, 0x0, 0x7f42b11354a0, 0xb)
+	/home/dfc/go/src/pkg/net/fd_unix.go:410 +0x2fe fp=0x7f42b0fa1de0
+net.(*TCPListener).AcceptTCP(0xc20803b030, 0x8, 0x0, 0x0)
+	/home/dfc/go/src/pkg/net/tcpsock_posix.go:233 +0x59 fp=0x7f42b0fa1e28
+net.(*TCPListener).Accept(0xc20803b030, 0x0, 0x0, 0x0, 0x0)
+	/home/dfc/go/src/pkg/net/tcpsock_posix.go:243 +0x4b fp=0x7f42b0fa1e68
+net/http.(*Server).Serve(0xc208402b40, 0x7f42b113bfa8, 0xc20803b030, 0x0, 0x0)
+	/home/dfc/go/src/pkg/net/http/server.go:1706 +0x91 fp=0x7f42b0fa1f40
+net/http.Serve(0x7f42b113bfa8, 0xc20803b030, 0x7f42a85b78e0, 0xc20812d8f0, 0x0, ...)
+	/home/dfc/go/src/pkg/net/http/server.go:1584 +0x7c fp=0x7f42b0fa1f78
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fa1f80
+created by launchpad.net/juju-core/testing.(*HTTPServer).Start
+	/home/dfc/src/launchpad.net/juju-core/testing/http.go:71 +0x224
+
+goroutine 12761 [IO wait]:
+runtime.park(0x427350, 0x7f42b113cad0, 0x12d7396)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a84f3680
+netpollblock(0x7f42b113caa8, 0x72)
+	/home/dfc/go/src/pkg/runtime/netpoll.goc:349 +0x130 fp=0x7f42a84f36b0
+net.runtime_pollWait(0x7f42b113caa8, 0x72, 0x0)
+	/home/dfc/go/src/pkg/runtime/netpoll.goc:146 +0x66 fp=0x7f42a84f36c8
+net.(*pollDesc).Wait(0xc208a84b50, 0x72, 0x0, 0x0)
+	/home/dfc/go/src/pkg/net/fd_poll_runtime.go:84 +0x46 fp=0x7f42a84f36e8
+net.(*pollDesc).WaitRead(0xc208a84b50, 0x0, 0x0)
+	/home/dfc/go/src/pkg/net/fd_poll_runtime.go:89 +0x42 fp=0x7f42a84f3710
+net.(*netFD).Read(0xc208a84af0, 0xc208447000, 0x400, 0x400, 0x0, ...)
+	/home/dfc/go/src/pkg/net/fd_unix.go:232 +0x30e fp=0x7f42a84f37a0
+net.(*conn).Read(0xc20803b028, 0xc208447000, 0x400, 0x400, 0x0, ...)
+	/home/dfc/go/src/pkg/net/net.go:122 +0xe7 fp=0x7f42a84f37f0
+crypto/tls.(*block).readFromUntil(0xc2083d5aa0, 0x7f42b113d2f0, 0xc20803b028, 0x5, 0x0, ...)
+	/home/dfc/go/src/pkg/crypto/tls/conn.go:451 +0xde fp=0x7f42a84f3860
+crypto/tls.(*Conn).readRecord(0xc2088ebb80, 0x17, 0x0, 0x0)
+	/home/dfc/go/src/pkg/crypto/tls/conn.go:536 +0x1e7 fp=0x7f42a84f3c40
+crypto/tls.(*Conn).Read(0xc2088ebb80, 0xc2081ca120, 0x24, 0x24, 0x0, ...)
+	/home/dfc/go/src/pkg/crypto/tls/conn.go:896 +0x14e fp=0x7f42a84f3d10
+labix.org/v2/mgo.fill(0x7f42b113d530, 0xc2088ebb80, 0xc2081ca120, 0x24, 0x24, ...)
+	/home/dfc/src/l4f3d98
+labix.org/v2/mgo.(*mongoSocket).readLoop(0xc208928c40)
+	/home/dfc/src/labix.org/v2/mgo/socket.go:502 +0x11f fp=0x7f42a84f3fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a84f3fa8
+created by labix.org/v2/mgo.newSocket
+	/home/dfc/src/labix.org/v2/mgo/socket.go:161 +0x2c7
+
+goroutine 5467 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8566ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8566f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8566f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8566f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208a69280)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8566fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8566fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 9360 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0066ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0066f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0066f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0066f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20829d080)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0066fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0066fa8
+created by:1366 +0x3b fp=0x7f42a856dd70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a856ddb8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a856ddd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208671880, 0xc208671801)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42a856df98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a856dfa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 9076 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a856aef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a856af10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a856af58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a856af70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa6600)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a856afa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a856afa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 8187 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0010ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0010f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0010f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0010f70
+launchpad.net/juju-core0fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 5749 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8572ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8572f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8572f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8572f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208a69800)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8572fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8572fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 3012 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0040ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0040f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0040f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0040f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20816e200)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0040fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0040fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12581 [sleep]:
+runtime.park(0x413200, 0x12e22e0, org/v2/mgo/server.go:272 +0x110 fp=0x7f42b003cf98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b003cfa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 4202 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0070ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0070f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0070f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0070f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20887c280)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0070fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0070fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12762 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0030d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0030d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0030db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0030dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208928540, 0xc208928501)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0030f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0030fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 9801 [sleep]:
+runtimrc/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0014f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20895b900)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0014fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0014fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 6029 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a85e9ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a85e9f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a85e9f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a85e9f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20887ce00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a85e9fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a85e9fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 6244 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fa8ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0fa8f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0fa8f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0fa8f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20887c780)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0fa8fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0fa8fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 11171 [sleep]:
+runhome/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0033f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2083e1800)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0033fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0033fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 4905 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0061ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0061f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0061f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0061f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20895a100)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0061fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0061fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 7365 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b002eef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b002ef10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b002ef58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b002ef70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2087ee300)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b002efa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b002efa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 4593 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a856eef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a856ef10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a856ef58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a856ef70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa6700)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a856efa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a856efa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 11891 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b005aef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b005af10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b005af58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b005af70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20887d600)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b005afa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b005afa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 8197 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0067ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0067f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0067f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0067f70
+launchpad.net/juju-co60 +0x645
+
+goroutine 12752 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8592d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8592d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8592db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8592dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc2088e7a40, 0xc2088e7a01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42a8592f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8592fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 13362 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0054d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0054d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0054db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0054dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc20866cee0, 0xc20866ce01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0054f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0054fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 5287 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0fa5ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0fa5f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0fa5f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0fa5f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20895b100)
+	/home/dfc/src/launchpad.net/juju-core/sme/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12589 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a84ecd50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a84ecd70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a84ecdb8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a84ecdd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208929500, 0xc208929501)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42a84ecf98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a84ecfa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 7578 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8500ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8500f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8500f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8500f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2087ef200)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8500fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8500fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12695 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a84edef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+=0x7f42a84edf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208d0cd00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a84edfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a84edfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 7207 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8560ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8560f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8560f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8560f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208a69000)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8560fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8560fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 5739 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b005def0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b005df10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b005df58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b005df70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20895b000)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b005dfa0
+runtime.0, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0016ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0016f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0016f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0016f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20829c700)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0016fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0016fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12639 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0012d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0012d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0012db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0012dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc20802e1c0, 0xc20802e101)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0012f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0012fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 7019 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0059ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0059f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0059f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0059f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20895b300)
+	/home/dfc/src/launchpad.net/juju-coime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8503ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8503f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8503f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8503f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20887c880)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8503fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8503fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 8636 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a84e9ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a84e9f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a84e9f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a84e9f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc2087ee200)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a84e9fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a84e9fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 10346 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a85e1ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a85e1f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a85e1f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a85e1f70
+launchpad.net/juju-core/state/api.:160 +0x645
+
+goroutine 13088 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0034ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0034f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0034f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0034f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20887d000)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0034fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0034fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 8141 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a857fef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a857ff10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a857ff58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a857ff70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa7980)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a857ffa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a857ffa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 13058 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b003ed50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b003ed70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b003edb8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42bntime/proc.c:1426 fp=0x7f42b003efa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 12199 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a84ddef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a84ddf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a84ddf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a84ddf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20887cc00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a84ddfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a84ddfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 10336 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8570ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8570f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8570f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8570f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa7a00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8570fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8570fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 11835 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 07f42b002ff58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b002ff70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa7e80)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b002ffa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b002ffa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 10819 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8563ef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8563f10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8563f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a8563f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa6c00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a8563fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a8563fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12635 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0058d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0058d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0058db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0058dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc2083308c0, 0xc208330801)
+	/home/dfc/src/l, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0046f58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0046f70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20829d680)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0046fa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0046fa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12788 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0f9cef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0f9cf10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0f9cf58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0f9cf70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc208aa7e00)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42b0f9cfa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0f9cfa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 12716 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b002dd50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b002dd70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b002ddb8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b002ddd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc2084ada40, 0xc2084ada01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b002df98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b002dfa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labixc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a84dfef0
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a84dff10
+runtime.tsleep(0xdf8475800, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a84dff58
+time.Sleep(0xdf8475800)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a84dff70
+launchpad.net/juju-core/state/api.(*State).heartbeatMonitor(0xc20829d300)
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:215 +0x5f fp=0x7f42a84dffa0
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a84dffa8
+created by launchpad.net/juju-core/state/api.Open
+	/home/dfc/src/launchpad.net/juju-core/state/api/apiclient.go:160 +0x645
+
+goroutine 13363 [IO wait]:
+runtime.park(0x427350, 0x7f42b113c600, 0x12d7396)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b004ec90
+netpollblock(0x7f42b113c5d8, 0x72)
+	/home/dfc/go/src/pkg/runtime/netpoll.goc:349 +0x130 fp=0x7f42b004ecc0
+net.runtime_pollWait(0x7f42b113c5d8, 0x72, 0x0)
+	/home/dfc/go/src/pkg/runtime/netpoll.goc:146 +0x66 fp=0x7f42b004ecd8
+net.(*pollDesc).Wait(0xc2083a6d80, 0x72, 0x0, 0x0)
+	/home/dfc/go/src/pkg/net/fd_poll_runtime.go:84 +0x46 fp=0x7f42b004ecf8
+net.(*pollDesc).WaitRead(0xc2083a6d80, 0x0, 0x0)
+	/home/dfc/go/src/pkg/net/fd_poll_runtime.go:89 +0x42 fp=0x7f42b004ed20
+net.(*netFD).accept(0xc2083a6d20, 0xfb49c8, 0x0, 0x7f42b11354a0, 0xb)
+	/home/dfc/go/src/pkg/net/fd_unix.go:410 +0x2fe fp=0x7f42b004ede0
+net.(*TCPListener).AcceptTCP(0xc2086ffbc8, 0xc2080e6aa8, 0x0, 0x0)
+	/home/dfc/go/src/pkg/net/tcpsock_posix.go:233 +0x59 fp=0x7f42b004ee28
+net.(*TCPListener).Accept(0xc2086ffbc8, 0x0, 0x0, 0x0, 0x0)
+	/home/dfc/go/src/pkg/net/tcpsock_posix.go:243 +0x4b fp=0x7f42b004ee68
+net/http.(*Server).Serve(0xc208712840, 0x7f42b113bfa8, 0xc2086ffbc8, 0x0, 0x0)
+	/home/dfc/go/src/pkg/net/http/server.go:1706 +0x91 fp=0x7f42b004ef40
+net/http.Serve(0x7f42b113bfa8, 0xc2086ffbc8, 0x7f42b113dcb8, 0xc20812dc80, 0x0, ...)
+	/home/dfc/go/src/pkg/net/http/server.go:1584 +0x7c fp=0x7f42b004ef78
+runtx7f42b0068d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0068d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0068db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0068dd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc20802fdc0, 0xc20802fd01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0068f98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0068fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 12729 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a855cd50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a855cd70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a855cdb8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42a855cdd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208670540, 0xc208670501)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42a855cf98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42a855cfa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 12608 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42a8511d50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42a8511d70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42a8511db8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f4426 fp=0x7f42a8511fa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+goroutine 12682 [sleep]:
+runtime.park(0x413200, 0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1350 +0x89 fp=0x7f42b0f9dd50
+runtime.parkunlock(0x12e22e0, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/proc.c:1366 +0x3b fp=0x7f42b0f9dd70
+runtime.tsleep(0x12a05f200, 0x12d5340)
+	/home/dfc/go/src/pkg/runtime/time.goc:87 +0x8a fp=0x7f42b0f9ddb8
+time.Sleep(0x12a05f200)
+	/home/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0f9ddd0
+labix.org/v2/mgo.(*mongoServer).pinger(0xc208330ee0, 0xc208330e01)
+	/home/dfc/src/labix.org/v2/mgo/server.go:272 +0x110 fp=0x7f42b0f9df98
+runtime.goexit()
+	/home/dfc/go/src/pkg/runtime/proc.c:1426 fp=0x7f42b0f9dfa0
+created by labix.org/v2/mgo.newServer
+	/home/dfc/src/labix.org/v2/mgo/server.go:80 +0xe0
+
+rax     0x9d2150
+rbx     0xaa0c98
+rcx     0xde80777213b48ff
+rdx     0xc2085cdd80
+rdi     0x0
+rsi     0xc2086b1780
+rbp     0x0
+rsp     0x7fffb7565ad0
+r8      0xc207fed518
+r9      0x7fffb7565b48
+r10     0x1fa
+r11     0xffffffffffdff000
+r12     0x21
+r13     0xc20856915d
+r14     0x9
+r15     0x0
+rip     0x4071dc
+rflags  0x10283
+cs      0x33
+fs      0x0
+gs      0x0
+FAIL	launchpad.net/juju-core/worker/uniter	85.557s
+

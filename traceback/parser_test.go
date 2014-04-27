@@ -1,10 +1,5 @@
 package traceback
 
-import (
-	"fmt"
-	"os"
-)
-
 func ExampleParseStacks_deadlock() {
 	printTrace("testdata/deadlock.txt")
 	// Output:
@@ -40,22 +35,32 @@ func ExampleParseStacks_sigabrt() {
 	// ID:4 Status:chan receive Calls:3 Head:github.com/t-yuki/gotracetools/traceback/testdata.TestSIGABRT
 }
 
-func printTrace(filename string) {
-	data, err := os.Open(filename)
-	if err != nil {
-		panic(err)
-	}
-	defer data.Close()
-	trace, err := ParseTraceback(data)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("Reason:%s\n", trace.Reason)
-	for _, s := range trace.Stacks {
-		fmt.Printf("ID:%d Status:%s Calls:%d", s.ID, s.Status, len(s.Calls))
-		if len(s.Calls) >= 1 {
-			fmt.Printf(" Head:%s", s.Calls[0].Func)
-		}
-		fmt.Println()
-	}
+func ExampleParseStacks_go7725() {
+	// stack trace example from go/issues/7725
+	// http://code.google.com/p/go/issues/detail?id=7725
+	// this stack trace contains several malformatted stacks such as runhome/XXX.
+	// it may be caused by data handling misses or unknown bugs of golang's stack trace generator.
+	printTraceSummary("testdata/go7725.txt")
+
+	// Output:
+	// Reason:SIGSEGV: segmentation violation
+	// PC=0x4071dc
+	// Goroutines:114 MinID:0 MaxID:13363
+	// Status:sleep Count:100
+	// Status:IO wait Count:3
+	// Status:syscall Count:3
+	// Status:chan receive Count:2
+	// Status:select Count:2
+	// Status:GC sweep wait Count:1
+	// Status:finalizer wait Count:1
+	// Status:garbage collection Count:1
+	// Status:idle Count:1
+	// Head:runtime.park Count:106
+	// Head:runtime.notetsleepg Count:2
+	// Head:runhome/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0033f70 Count:1
+	// Head:runtime.gc Count:1
+	// Head:runtime.park(0x413200, 0x12e22e0, 07f42b002ff58 Count:1
+	// Head:runtime.park(0x413200, 0x12e22e0, org/v2/mgo/server.go:272 +0x110 fp=0x7f42b003cf98 Count:1
+	// Head:scanblock Count:1
+	// Head:syscall.Syscall Count:1
 }
