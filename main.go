@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	flagp "flag"
+	"fmt"
 	"io"
 	"os"
 	"os/exec"
@@ -17,6 +18,7 @@ import (
 var flag = flagp.NewFlagSet(os.Args[0], flagp.ExitOnError)
 
 var (
+	help          = flag.Bool("h", false, "show this help")
 	excludeGOROOT = flag.Bool("R", false, "exclude GOROOT functions completely")
 	includeGOROOT = flag.Bool("r", false, "include GOROOT functions")
 	topOnly       = flag.Bool("t", false, "print top functions only (implies `-R` when `r` == false)")
@@ -24,9 +26,21 @@ var (
 	httpAddr      = flag.String("http", "", "HTTP service address (e.g., ':6060')")
 )
 
+func init() {
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
+		flag.PrintDefaults()
+	}
+}
+
 func main() {
 	goArgs, gotfmtArgs := preprocessArgs(os.Args[1:])
 	flag.Parse(gotfmtArgs)
+
+	if *help {
+		flag.Usage()
+		return
+	}
 
 	if *httpAddr != "" {
 		webapp.ListenAndServe(*httpAddr)
