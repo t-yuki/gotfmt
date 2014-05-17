@@ -2,7 +2,7 @@ gotfmt: Go stack trace formatter library and utilities
 ======================================================
 
 This is a simple parser library and utilities for [GOTRACEBACK output](http://golang.org/pkg/runtime/) 
-Also there is Web UI with demo: http://gotraceback.appspot.com/
+Also there is Web UI with demo: http://gotfmt.appspot.com/
 
 Installation
 ------------
