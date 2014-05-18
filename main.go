@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	flagp "flag"
 	"fmt"
 	"io"
@@ -18,12 +19,17 @@ import (
 var flag = flagp.NewFlagSet(os.Args[0], flagp.ExitOnError)
 
 var (
-	help          = flag.Bool("h", false, "show this help")
-	excludeGOROOT = flag.Bool("R", false, "exclude GOROOT functions completely")
-	includeGOROOT = flag.Bool("r", false, "include GOROOT functions")
-	topOnly       = flag.Bool("t", false, "print top functions only (implies `-R` when `r` == false)")
-	quickfix      = flag.Bool("q", false, "print with vim quickfix list format (implies `-t -R`). Hint: gotb -q | vim - -c :cb! -c :copen")
-	httpAddr      = flag.String("http", "", "HTTP service address (e.g., ':6060')")
+	help   = flag.Bool("h", false, "show this help")
+	format = flag.String("t", "text", `output format
+	text: pretty formatted text format
+	qfix: vim quickfix output format with errorformat: '%f:%l:\ %m'. you should use with 'nostd,notest,top' filters
+	json: JSON format`)
+	filter = flag.String("f", "", `stack trace filters by comma-separated list
+	trimstd:  exclude GOROOT function calls but leave one
+	nostd:    exclude GOROOT function calls completely
+	notest:   exclude testing function calls
+	top:      remove lower function calls`)
+	httpAddr = flag.String("http", "", "HTTP service address (e.g., ':6060')")
 )
 
 func init() {
@@ -95,38 +101,40 @@ func run(goArgs []string) {
 
 	convert(in, os.Stdout)
 	if cmd != nil {
-		err := cmd.Wait()
-		if err != nil {
-			io.Copy(os.Stderr, goErr)
-			os.Stderr.WriteString(err.Error() + "\n")
-		}
+		_ = cmd.Wait()
 	}
 }
 
 func convert(in io.Reader, out io.WriteCloser) {
-	if *quickfix {
-		*topOnly = true
-	}
-	if *topOnly && !*includeGOROOT {
-		*excludeGOROOT = true
-	}
-
 	trace, err := traceback.ParseTraceback(in)
 	if err != nil {
 		panic(err)
 	}
 	stacks := trace.Stacks
-	stacks = traceback.ExcludeGotest(stacks)
-	if !*includeGOROOT {
-		stacks = traceback.ExcludeGoroot(stacks, !*excludeGOROOT)
+	if strings.Contains(*filter, "notest") {
+		stacks = traceback.ExcludeGotest(stacks)
 	}
-	if *topOnly {
+	if strings.Contains(*filter, "nostd") {
+		stacks = traceback.ExcludeGoroot(stacks, false)
+	} else if strings.Contains(*filter, "trimstd") {
+		stacks = traceback.ExcludeGoroot(stacks, true)
+	}
+	if strings.Contains(*filter, "top") {
 		stacks = traceback.ExcludeLowers(stacks)
 	}
-	if *quickfix {
+	switch *format {
+	case "qfix":
 		trace.Stacks = stacks
 		traceback.Fprint(out, trace, traceback.PrintConfig{Quickfix: true})
-	} else {
+	case "json":
+		stacks = traceback.TrimSourcePrefix(stacks)
+		trace.Stacks = stacks
+		b, err := json.MarshalIndent(trace, "", "\t")
+		if err != nil {
+			panic(err)
+		}
+		out.Write(b)
+	default:
 		stacks = traceback.TrimSourcePrefix(stacks)
 		trace.Stacks = stacks
 		traceback.Fprint(out, trace, traceback.PrintConfig{})
