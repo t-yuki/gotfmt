@@ -2,19 +2,28 @@ package main
 
 import (
 	"flag"
-	"github.com/t-yuki/gotracetools/traceback"
+	"fmt"
 	"io"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/t-yuki/gotracetools/traceback"
 )
 
 var (
-	excludeGOROOT = flag.Bool("R", false, "exclude GOROOT functions completely")
-	includeGOROOT = flag.Bool("r", false, "include GOROOT functions")
-	topOnly       = flag.Bool("t", false, "print top functions only (implies `-R` when `r` == false)")
-	quickfix      = flag.Bool("q", false, "print with vim quickfix list format (implies `-t -R`). Hint: gotb -q | vim - -c :cb! -c :copen")
+	filterGOROOT  = flag.String("filter.goroot", "chop", "set GOROOT filter mode. none: show all GOROOT functions. all: exclude all GOROOT functions completely. chop: omit consecutive GOROOT functions from the top of stack except one")
+	filterTopOnly = flag.Bool("filter.toponly", false, "print each top function of stacks")
+	format        = flag.String("out.format", "column", "column: two column. qfix: vim quickfix list format. it should use with `toponly`")
 )
+
+func init() {
+	flag.Usage = func() {
+		fmt.Fprintln(os.Stderr, "gotb - Go Trace Back formatter")
+		fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
+		flag.PrintDefaults()
+	}
+}
 
 func main() {
 	flag.Parse()
@@ -23,33 +32,28 @@ func main() {
 	convert(os.Stdin, os.Stdout)
 }
 
-func convert(in io.Reader, out io.WriteCloser) {
-	if *quickfix {
-		*topOnly = true
-	}
-	if *topOnly && !*includeGOROOT {
-		*excludeGOROOT = true
-	}
-
+func convert(in io.Reader, out io.Writer) {
 	trace, err := traceback.ParseTraceback(in)
 	if err != nil {
 		panic(err)
 	}
 	stacks := trace.Stacks
 	stacks = traceback.ExcludeGotest(stacks)
-	if !*includeGOROOT {
-		stacks = traceback.ExcludeGoroot(stacks, !*excludeGOROOT)
+
+	if *filterGOROOT != "none" {
+		stacks = traceback.ExcludeGoroot(stacks, *filterGOROOT == "chop")
 	}
-	if *topOnly {
+	if *filterTopOnly {
 		stacks = traceback.ExcludeLowers(stacks)
 	}
-	if *quickfix {
+	switch *format {
+	case "qfix":
 		trace.Stacks = stacks
 		traceback.Fprint(out, trace, traceback.PrintConfig{Quickfix: true})
-	} else {
+	case "column":
+	default:
 		stacks = traceback.TrimSourcePrefix(stacks)
 		trace.Stacks = stacks
 		traceback.Fprint(out, trace, traceback.PrintConfig{})
 	}
-	out.Close()
 }
