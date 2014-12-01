@@ -9,7 +9,11 @@ Installation
 
 Just type the following to install the program and its dependencies:
 
-    $ go get -u github.com/t-yuki/gotfmt/...
+    $ go get -u github.com/t-yuki/gotfmt
+
+Additionally, you can install `got` command.
+
+    $ go get -u github.com/t-yuki/gotfmt/cmd/got
 
 Usage
 -----
@@ -18,9 +22,10 @@ Usage
 
     $ go test -timeout=1us |& gotfmt -f=notest
 
-`gotfmt test` runs `go test` and formats its stack trace texts:
+`gotfmt test` runs `go test` and formats its stack trace texts. `got` is an alias command:
 
     $ gotfmt test -timeout=1us
+    $ got -timeout=1us
 
 `gotfmt -http=:6060` runs Web UI:
 
@@ -29,18 +34,23 @@ Usage
 Other options:
 
 ```
+gotfmt - Go Test formatter utility
 Usage of gotfmt:
-  -f="": stack trace filters by comma-separated list
+  -f="trimstd,notest": stack trace filters by comma-separated list
         trimstd:  exclude GOROOT function calls but leave one
         nostd:    exclude GOROOT function calls completely
         notest:   exclude testing function calls
         top:      remove lower function calls
   -h=false: show this help
   -http="": HTTP service address (e.g., ':6060')
+  -n=1: repeat the test N times while it passes
+  -np=0: similar to a combination of `-n` and `-p` but increment GOMAXPROCS from 1 for each repeat
+  -p=0: set GOMAXPROCS
   -t="text": output format
         text: pretty formatted text format
         qfix: vim quickfix output format with errorformat: '%f:%l:\ %m'. you should use with 'nostd,notest,top' filters
         json: JSON format
+Any other flags or arguments will be passed to `go` command.
 ```
 
 Tips

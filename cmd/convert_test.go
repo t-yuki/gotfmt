@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"bytes"
@@ -12,7 +12,7 @@ func TestConvert_data1(t *testing.T) {
 		t.Fatal(err)
 	}
 	out := &bytes.Buffer{}
-	convert(bytes.NewBuffer(data), out)
+	Convert(bytes.NewBuffer(data), out)
 }
 
 func TestConvert_data2(t *testing.T) {
@@ -21,5 +21,5 @@ func TestConvert_data2(t *testing.T) {
 		t.Fatal(err)
 	}
 	out := &bytes.Buffer{}
-	convert(bytes.NewBuffer(data), out)
+	Convert(bytes.NewBuffer(data), out)
 }

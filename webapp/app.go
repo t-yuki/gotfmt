@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/t-yuki/gotracetools/traceback"
+	"github.com/t-yuki/gotfmt/traceback"
 )
 
 func init() {
