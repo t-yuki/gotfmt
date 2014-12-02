@@ -46,8 +46,9 @@ Usage of gotfmt:
   -n=1: repeat the test N times while it passes
   -np=0: similar to a combination of `-n` and `-p` but increment GOMAXPROCS from 1 for each repeat
   -p=0: set GOMAXPROCS
-  -t="text": output format
-        text: pretty formatted text format
+  -t="column": output format
+	raw: as-is and no filtering
+	column: column formatted text
         qfix: vim quickfix output format with errorformat: '%f:%l:\ %m'. you should use with 'nostd,notest,top' filters
         json: JSON format
 Any other flags or arguments will be passed to `go` command.

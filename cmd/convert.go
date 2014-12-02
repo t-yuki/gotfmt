@@ -9,6 +9,10 @@ import (
 )
 
 func Convert(in io.Reader, out io.Writer) {
+	if *format == "" || *format == "raw" {
+		io.Copy(out, in)
+		return
+	}
 	trace, err := traceback.ParseTraceback(in)
 	if err != nil {
 		panic(err)
@@ -26,6 +30,10 @@ func Convert(in io.Reader, out io.Writer) {
 		stacks = traceback.ExcludeLowers(stacks)
 	}
 	switch *format {
+	case "column":
+		stacks = traceback.TrimSourcePrefix(stacks)
+		trace.Stacks = stacks
+		traceback.Fprint(out, trace, traceback.PrintConfig{})
 	case "qfix":
 		trace.Stacks = stacks
 		traceback.Fprint(out, trace, traceback.PrintConfig{Quickfix: true})
@@ -38,8 +46,6 @@ func Convert(in io.Reader, out io.Writer) {
 		}
 		out.Write(b)
 	default:
-		stacks = traceback.TrimSourcePrefix(stacks)
-		trace.Stacks = stacks
-		traceback.Fprint(out, trace, traceback.PrintConfig{})
+		panic("unsupported format: " + *format)
 	}
 }
