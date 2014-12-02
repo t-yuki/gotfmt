@@ -1,5 +1,7 @@
 package traceback
 
+import "fmt"
+
 func ExampleParseStacks_deadlock() {
 	printTrace("testdata/deadlock.txt")
 	// Output:
@@ -54,22 +56,39 @@ func ExampleParseStacks_go7725() {
 	// Output:
 	// Reason:SIGSEGV: segmentation violation
 	// PC=0x4071dc
-	// Goroutines:114 MinID:0 MaxID:13363
-	// Status:sleep Count:100
+	// Goroutines:122 MinID:0 MaxID:13363
+	// Status:sleep Count:105
 	// Status:IO wait Count:3
 	// Status:syscall Count:3
 	// Status:chan receive Count:2
 	// Status:select Count:2
+	// Status:syscall, 1 minutes Count:2
 	// Status:GC sweep wait Count:1
+	// Status:chan receive, 1 minutes Count:1
 	// Status:finalizer wait Count:1
 	// Status:garbage collection Count:1
 	// Status:idle Count:1
-	// Head:runtime.park Count:106
-	// Head:runtime.notetsleepg Count:2
+	// Head:runtime.park Count:111
+	// Head:runtime.notetsleepg Count:3
 	// Head:runhome/dfc/go/src/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0033f70 Count:1
 	// Head:runtime.gc Count:1
+	// Head:runtime.goexit Count:1
 	// Head:runtime.park(0x413200, 0x12e22e0, 07f42b002ff58 Count:1
 	// Head:runtime.park(0x413200, 0x12e22e0, org/v2/mgo/server.go:272 +0x110 fp=0x7f42b003cf98 Count:1
+	// Head:runtimrc/pkg/runtime/time.goc:39 +0x31 fp=0x7f42b0014f70 Count:1
 	// Head:scanblock Count:1
 	// Head:syscall.Syscall Count:1
+}
+
+func ExampleParseStacks_userdefined1() {
+	ignored := printTrace("testdata/userdefined1.txt")
+	fmt.Println(ignored)
+	// Output:
+	// Reason:FAIL: [12/01/14 20:19:04.517909] opps
+	// 	xxx.go:10: want:1 but:2
+	// ID:4 Status:running Calls:3 Head:runtime.panic
+	// ID:1 Status:runnable Calls:3 Head:testing.RunTests
+	// === RUN TestNil
+	// [12/01/14 20:19:04.626520] [INFO] YYY
+	// FAIL	github.com/t-yuki/gotracetools/traceback/testdata	0.010s
 }

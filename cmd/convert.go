@@ -3,17 +3,24 @@ package cmd
 import (
 	"encoding/json"
 	"io"
+	"io/ioutil"
 	"strings"
 
 	"github.com/t-yuki/gotfmt/traceback"
 )
 
 func Convert(in io.Reader, out io.Writer) {
-	if *format == "" || *format == "raw" {
+	var wr io.Writer = ioutil.Discard
+	switch *format {
+	case "raw":
+		fallthrough
+	default:
 		io.Copy(out, in)
 		return
+	case "col":
+		wr = out
 	}
-	trace, err := traceback.ParseTraceback(in)
+	trace, err := traceback.ParseTraceback(in, wr)
 	if err != nil {
 		panic(err)
 	}
@@ -30,7 +37,7 @@ func Convert(in io.Reader, out io.Writer) {
 		stacks = traceback.ExcludeLowers(stacks)
 	}
 	switch *format {
-	case "column":
+	case "col":
 		stacks = traceback.TrimSourcePrefix(stacks)
 		trace.Stacks = stacks
 		traceback.Fprint(out, trace, traceback.PrintConfig{})

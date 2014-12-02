@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -24,7 +25,7 @@ func processHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	trace, err := traceback.ParseTraceback(in)
+	trace, err := traceback.ParseTraceback(in, ioutil.Discard)
 	if err != nil {
 		log.Printf("parse err: %v", err)
 		w.WriteHeader(http.StatusBadRequest)

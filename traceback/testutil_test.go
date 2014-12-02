@@ -1,18 +1,20 @@
 package traceback
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"sort"
 )
 
-func printTrace(filename string) {
+func printTrace(filename string) (ignored *bytes.Buffer) {
+	ignored = &bytes.Buffer{}
 	data, err := os.Open(filename)
 	if err != nil {
 		panic(err)
 	}
 	defer data.Close()
-	trace, err := ParseTraceback(data)
+	trace, err := ParseTraceback(data, ignored)
 	if err != nil {
 		panic(err)
 	}
@@ -24,15 +26,23 @@ func printTrace(filename string) {
 		}
 		fmt.Println()
 	}
+	return
 }
 
-func printTraceSummary(filename string) {
+func printTraceSummary(filename string) (ignored *bytes.Buffer) {
+	ignored = &bytes.Buffer{}
+	defer func() {
+		if e := recover(); e != nil {
+			fmt.Fprintf(os.Stderr, "%s", ignored.String())
+			panic(e)
+		}
+	}()
 	data, err := os.Open(filename)
 	if err != nil {
 		panic(err)
 	}
 	defer data.Close()
-	trace, err := ParseTraceback(data)
+	trace, err := ParseTraceback(data, ignored)
 	if err != nil {
 		panic(err)
 	}
@@ -66,6 +76,7 @@ func printTraceSummary(filename string) {
 	for _, e := range headFuncCounts {
 		fmt.Printf("Head:%s Count:%d\n", e.key, e.count)
 	}
+	return
 }
 
 type keyedCounters []struct {

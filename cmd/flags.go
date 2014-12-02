@@ -27,9 +27,9 @@ func RegisterFlags(flags *flag.FlagSet) {
 	nostd:    exclude GOROOT function calls completely
 	notest:   exclude testing function calls
 	top:      remove lower function calls`)
-	format = flags.String("t", "column", `output format
+	format = flags.String("t", "col", `output format
 	raw: as-is and no filtering
-	column: column formatted text
+	col: column formatted text
 	qfix: vim quickfix output format with errorformat: '%f:%l:\ %m'. you should use with 'nostd,notest,top' filters
 	json: JSON format`)
 

@@ -1,0 +1,22 @@
+=== RUN TestNil
+____FAIL: [12/01/14 20:19:04.517909] opps
+	xxx.go:10: want:1 but:2
+
+goroutine 4 [running]:
+runtime.panic(0x4f5100, 0x642148)
+[12/01/14 20:19:04.626520] [INFO] YYY
+	/usr/local/go/src/pkg/runtime/panic.c:266 +0xb6
+github.com/t-yuki/gotracetools/traceback/testdata.func·002()
+	/home/t-yuki/gopath/src/github.com/t-yuki/gotracetools/traceback/testdata/nil_test.go:9 +0x28
+created by github.com/t-yuki/gotracetools/traceback/testdata.TestNil
+	/home/t-yuki/gopath/src/github.com/t-yuki/gotracetools/traceback/testdata/nil_test.go:9 +0x62
+
+goroutine 1 [runnable]:
+testing.RunTests(0x552570, 0x6406c0, 0x3, 0x3, 0x1)
+	/usr/local/go/src/pkg/testing/testing.go:472 +0x8d5
+testing.Main(0x552570, 0x6406c0, 0x3, 0x3, 0x6452a0, ...)
+	/usr/local/go/src/pkg/testing/testing.go:403 +0x84
+main.main()
+	github.com/t-yuki/gotracetools/traceback/testdata/_test/_testmain.go:51 +0x9c
+exit status 2
+FAIL	github.com/t-yuki/gotracetools/traceback/testdata	0.010s

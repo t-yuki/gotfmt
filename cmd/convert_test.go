@@ -31,7 +31,7 @@ func testConvert(t *testing.T, data []byte) {
 		t.Fatal("want: data == out but:", data, out)
 	}
 
-	*format = "column"
+	*format = "col"
 	out = &bytes.Buffer{}
 	Convert(bytes.NewBuffer(data), out)
 
