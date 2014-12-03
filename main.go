@@ -19,9 +19,12 @@ func init() {
 	cmd.RegisterFlags(flags)
 	flags.Usage = func() {
 		fmt.Fprintln(os.Stderr, "gotfmt - Go Test formatter utility")
-		fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Usage of %s [test|FILE]:\n", os.Args[0])
+		fmt.Fprintln(os.Stderr, "  If test is provided, it runs `go test` internally.")
+		fmt.Fprintln(os.Stderr, "  Other flags or arguments will be passed to `go` command.")
+		fmt.Fprintln(os.Stderr, "  If FILE is exists, it reads the test result from FILE.")
+		fmt.Fprintln(os.Stderr)
 		flags.PrintDefaults()
-		fmt.Fprintln(os.Stderr, "Any other flags or arguments will be passed to `go` command.")
 	}
 }
 

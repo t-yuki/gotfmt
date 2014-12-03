@@ -9,10 +9,11 @@ Installation
 
 Just type the following to install the program and its dependencies:
 
+    $ go get -u github.com/t-yuki/gotfmt/...
+
+If you want to install commands separately, just:
+
     $ go get -u github.com/t-yuki/gotfmt
-
-Additionally, you can install `got` command.
-
     $ go get -u github.com/t-yuki/gotfmt/cmd/got
 
 Usage
@@ -20,12 +21,12 @@ Usage
 
 `gotfmt` formats stack trace texts pretty:
 
-    $ go test -timeout=1us |& gotfmt -f=notest
+    $ go test -timeout=1us |& gotfmt
 
-`gotfmt test` runs `go test` and formats its stack trace texts. `got` is an alias command:
+`got` or `gotfmt test` runs `go test` and formats its stack trace texts.
 
-    $ gotfmt test -timeout=1us
     $ got -timeout=1us
+    $ gotfmt test -timeout=1us
 
 `gotfmt -http=:6060` runs Web UI:
 
@@ -35,7 +36,11 @@ Other options:
 
 ```
 gotfmt - Go Test formatter utility
-Usage of gotfmt:
+Usage of gotfmt [test|FILE]:
+  If test is provided, it runs `go test` internally.
+  Other flags or arguments will be passed to `go` command.
+  If FILE is exists, it reads the test result from FILE.
+
   -f="trimstd,notest": stack trace filters by comma-separated list
         trimstd:  exclude GOROOT function calls but leave one
         nostd:    exclude GOROOT function calls completely
@@ -46,13 +51,12 @@ Usage of gotfmt:
   -n=1: repeat the test N times while it passes
   -np=0: similar to a combination of `-n` and `-p` but increment GOMAXPROCS from 1 for each repeat
   -p=0: set GOMAXPROCS
-  -t="column": output format
+  -t="col": output format
         raw: as-is and no filtering
         text: filtered GOTRACEBACK style
-        column: column formatted text
+        col: column formatted text
         qfix: vim quickfix output format with errorformat: '%f:%l:\ %m'. you should use with 'nostd,notest,top' filters
         json: JSON format
-Any other flags or arguments will be passed to `go` command.
 ```
 
 Tips

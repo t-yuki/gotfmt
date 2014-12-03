@@ -13,7 +13,7 @@ import (
 	"syscall"
 )
 
-func Main(goArgs []string) {
+func Main(args []string) {
 	repeat, procs := *fNrepeat, *fProcs
 	if *fNP != 0 {
 		repeat = *fNP
@@ -30,21 +30,29 @@ func Main(goArgs []string) {
 		if *fNP != 0 {
 			os.Setenv("GOMAXPROCS", strconv.Itoa(i+1))
 		}
-		err := Run(goArgs)
+		err := Run(args)
 		if err != nil {
 			os.Exit(1)
 		}
 	}
 }
 
-func Run(goArgs []string) (err error) {
+func Run(args []string) (err error) {
 	log := &bytes.Buffer{}
 	wr := io.MultiWriter(os.Stdout, log)
 
-	in := io.Reader(os.Stdin)
+	var in io.Reader
 	var cmd *exec.Cmd
-	if len(goArgs) != 0 {
-		cmd = exec.Command("go", goArgs...)
+	if len(args) != 0 && args[0] != "test" {
+		if _, err := os.Stat(args[0]); err == nil {
+			if f, err := os.Open(args[0]); err == nil {
+				in = f
+				defer f.Close()
+			}
+		}
+	}
+	if len(args) != 0 && in == nil {
+		cmd = exec.Command("go", args...)
 		cmd.Stdin = os.Stdin
 		cmd.Stdout = wr
 		stderr, err := cmd.StderrPipe()
@@ -56,6 +64,9 @@ func Run(goArgs []string) (err error) {
 		if err != nil {
 			return err
 		}
+	}
+	if in == nil {
+		in = io.Reader(os.Stdin)
 	}
 	goErr := &bytes.Buffer{}
 	in = io.TeeReader(in, goErr)
