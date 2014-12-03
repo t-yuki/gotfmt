@@ -13,12 +13,12 @@ func Convert(in io.Reader, out io.Writer) *traceback.Traceback {
 	var wr io.Writer = ioutil.Discard
 	switch *format {
 	case "raw":
-		fallthrough
-	default:
 		io.Copy(out, in)
 		return nil
 	case "text", "col":
 		wr = out
+	default:
+		wr = ioutil.Discard
 	}
 
 	trace, err := traceback.ParseTraceback(in, wr)

@@ -47,8 +47,9 @@ Usage of gotfmt:
   -np=0: similar to a combination of `-n` and `-p` but increment GOMAXPROCS from 1 for each repeat
   -p=0: set GOMAXPROCS
   -t="column": output format
-	raw: as-is and no filtering
-	column: column formatted text
+        raw: as-is and no filtering
+        text: filtered GOTRACEBACK style
+        column: column formatted text
         qfix: vim quickfix output format with errorformat: '%f:%l:\ %m'. you should use with 'nostd,notest,top' filters
         json: JSON format
 Any other flags or arguments will be passed to `go` command.

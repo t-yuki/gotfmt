@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"bytes"
+	"encoding/json"
 	"io/ioutil"
 	"testing"
 )
@@ -38,9 +39,13 @@ func testConvert(t *testing.T, data []byte) {
 	*format = "json"
 	out = &bytes.Buffer{}
 	Convert(bytes.NewBuffer(data), out)
+	var m map[string]interface{}
+	err := json.Unmarshal(out.Bytes(), &m)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	*format = "qfix"
 	out = &bytes.Buffer{}
 	Convert(bytes.NewBuffer(data), out)
-
 }
