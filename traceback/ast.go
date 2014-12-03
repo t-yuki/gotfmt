@@ -26,11 +26,29 @@ type Traceback struct {
 	Stacks []Stack
 }
 
+func (t Traceback) Clone() Traceback {
+	tr := t
+	tr.Stacks = make([]Stack, 0, len(t.Stacks))
+	for _, s := range t.Stacks {
+		tr.Stacks = append(tr.Stacks, s.Clone())
+	}
+	return tr
+}
+
 // Stack represents the call stack trace of a goroutine.
 type Stack struct {
 	ID     int
 	Status StackStatus
 	Calls  []Call
+}
+
+func (s Stack) Clone() Stack {
+	st := s
+	st.Calls = make([]Call, 0, len(s.Calls))
+	for _, c := range s.Calls {
+		st.Calls = append(st.Calls, c.Clone())
+	}
+	return st
 }
 
 // Call represents a function call of a call stack trace.
@@ -39,4 +57,11 @@ type Call struct {
 	Source string
 	Line   int
 	Args   []uint64
+}
+
+func (c Call) Clone() Call {
+	ca := c
+	ca.Args = make([]uint64, 0, len(c.Args))
+	copy(ca.Args, c.Args)
+	return ca
 }

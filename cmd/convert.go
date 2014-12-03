@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"strings"
@@ -9,21 +9,48 @@ import (
 	"github.com/t-yuki/gotfmt/traceback"
 )
 
-func Convert(in io.Reader, out io.Writer) {
+func Convert(in io.Reader, out io.Writer) *traceback.Traceback {
 	var wr io.Writer = ioutil.Discard
 	switch *format {
 	case "raw":
 		fallthrough
 	default:
 		io.Copy(out, in)
-		return
-	case "col":
+		return nil
+	case "text", "col":
 		wr = out
 	}
+
 	trace, err := traceback.ParseTraceback(in, wr)
 	if err != nil {
 		panic(err)
 	}
+
+	filtered := ApplyFilters(trace)
+
+	switch *format {
+	case "text":
+		if len(filtered.Stacks) != 0 {
+			fmt.Fprintln(out)
+		}
+		traceback.Fprint(out, filtered, traceback.PrintConfig{Format: traceback.Text})
+	case "col":
+		if len(filtered.Stacks) != 0 {
+			fmt.Fprintln(out)
+		}
+		traceback.Fprint(out, filtered, traceback.PrintConfig{Format: traceback.Column})
+	case "qfix":
+		traceback.Fprint(out, filtered, traceback.PrintConfig{Format: traceback.Quickfix})
+	case "json":
+		traceback.Fprint(out, filtered, traceback.PrintConfig{Format: traceback.JSON})
+	default:
+		panic("unsupported format: " + *format)
+	}
+	return trace
+}
+
+func ApplyFilters(src *traceback.Traceback) *traceback.Traceback {
+	trace := src.Clone()
 	stacks := trace.Stacks
 	if strings.Contains(*filter, "notest") {
 		stacks = traceback.ExcludeGotest(stacks)
@@ -36,23 +63,6 @@ func Convert(in io.Reader, out io.Writer) {
 	if strings.Contains(*filter, "top") {
 		stacks = traceback.ExcludeLowers(stacks)
 	}
-	switch *format {
-	case "col":
-		stacks = traceback.TrimSourcePrefix(stacks)
-		trace.Stacks = stacks
-		traceback.Fprint(out, trace, traceback.PrintConfig{})
-	case "qfix":
-		trace.Stacks = stacks
-		traceback.Fprint(out, trace, traceback.PrintConfig{Quickfix: true})
-	case "json":
-		stacks = traceback.TrimSourcePrefix(stacks)
-		trace.Stacks = stacks
-		b, err := json.MarshalIndent(trace, "", "\t")
-		if err != nil {
-			panic(err)
-		}
-		out.Write(b)
-	default:
-		panic("unsupported format: " + *format)
-	}
+	trace.Stacks = stacks
+	return &trace
 }
