@@ -80,3 +80,7 @@ Authors
 -------
 
 * [Yukinari Toyota (t-yuki)](https://github.com/t-yuki)
+
+Thanks
+------
+* @mattn https://github.com/mattn/go-runewidth

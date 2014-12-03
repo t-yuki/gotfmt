@@ -6,6 +6,8 @@ import (
 	"io"
 	"strconv"
 	"strings"
+
+	"github.com/t-yuki/gotfmt/thirdparty/go-runewidth"
 )
 
 type PrintFormat int
@@ -58,6 +60,8 @@ func printText(out io.Writer, trace *Traceback, config PrintConfig) {
 	}
 }
 
+var gowidth = runewidth.Condition{false}
+
 func printColumn(out io.Writer, trace *Traceback, config PrintConfig) {
 	tr := *trace
 	if !config.PreserveSourcePrefix {
@@ -66,8 +70,9 @@ func printColumn(out io.Writer, trace *Traceback, config PrintConfig) {
 	maxwidth := int(0)
 	for _, s := range tr.Stacks {
 		for _, c := range s.Calls {
-			if maxwidth < len(c.Func) {
-				maxwidth = len(c.Func)
+			width := gowidth.StringWidth(c.Func)
+			if maxwidth < width {
+				maxwidth = width
 			}
 		}
 	}
@@ -81,7 +86,8 @@ func printColumn(out io.Writer, trace *Traceback, config PrintConfig) {
 		}
 		fmt.Fprintf(out, "goroutine %d [%s]\n", s.ID, s.Status)
 		for _, c := range s.Calls {
-			dw := maxwidth - len(c.Func)
+			width := gowidth.StringWidth(c.Func)
+			dw := maxwidth - width
 			fmt.Fprintf(out, "  %s%s  %s:%d\n", c.Func, strings.Repeat(" ", dw), c.Source, c.Line)
 		}
 	}
