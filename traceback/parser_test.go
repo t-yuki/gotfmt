@@ -84,7 +84,7 @@ func ExampleParseStacks_userdefined1() {
 	ignored := printTrace("testdata/userdefined1.txt")
 	fmt.Println(ignored)
 	// Output:
-	// Reason:FAIL: [12/01/14 20:19:04.517909] opps
+	// Reason:CRITICAL_FAIL: [12/01/14 20:19:04.517909] opps
 	// 	xxx.go:10: want:1 but:2
 	// ID:4 Status:running Calls:3 Head:runtime.panic
 	// ID:1 Status:runnable Calls:3 Head:testing.RunTests

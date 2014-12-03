@@ -1,5 +1,5 @@
 === RUN TestNil
-____FAIL: [12/01/14 20:19:04.517909] opps
+__CRITICAL_FAIL: [12/01/14 20:19:04.517909] opps
 	xxx.go:10: want:1 but:2
 
 goroutine 4 [running]:
