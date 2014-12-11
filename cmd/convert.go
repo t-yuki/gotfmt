@@ -15,7 +15,7 @@ func Convert(in io.Reader, out io.Writer) *traceback.Traceback {
 	case "raw":
 		io.Copy(out, in)
 		return nil
-	case "text", "col":
+	case "text", "pretty":
 		wr = out
 	default:
 		wr = ioutil.Discard
@@ -24,6 +24,9 @@ func Convert(in io.Reader, out io.Writer) *traceback.Traceback {
 	trace, err := traceback.ParseTraceback(in, wr)
 	if err != nil {
 		panic(err)
+	}
+	if trace == nil {
+		return nil
 	}
 
 	filtered := ApplyFilters(trace)
@@ -34,11 +37,11 @@ func Convert(in io.Reader, out io.Writer) *traceback.Traceback {
 			fmt.Fprintln(out)
 		}
 		traceback.Fprint(out, filtered, traceback.PrintConfig{Format: traceback.Text})
-	case "col":
+	case "pretty":
 		if len(filtered.Stacks) != 0 {
 			fmt.Fprintln(out)
 		}
-		traceback.Fprint(out, filtered, traceback.PrintConfig{Format: traceback.Column})
+		traceback.Fprint(out, filtered, traceback.PrintConfig{Format: traceback.Pretty})
 	case "qfix":
 		traceback.Fprint(out, filtered, traceback.PrintConfig{Format: traceback.Quickfix})
 	case "json":

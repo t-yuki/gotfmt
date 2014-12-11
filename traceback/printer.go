@@ -14,7 +14,7 @@ type PrintFormat int
 
 const (
 	Text PrintFormat = iota
-	Column
+	Pretty
 	Quickfix
 	JSON
 )
@@ -28,8 +28,8 @@ func Fprint(out io.Writer, trace *Traceback, config PrintConfig) {
 	switch config.Format {
 	case Text:
 		printText(out, trace, config)
-	case Column:
-		printColumn(out, trace, config)
+	case Pretty:
+		printPretty(out, trace, config)
 	case Quickfix:
 		printQuickfix(out, trace, config)
 	case JSON:
@@ -62,33 +62,72 @@ func printText(out io.Writer, trace *Traceback, config PrintConfig) {
 
 var gowidth = runewidth.Condition{false}
 
-func printColumn(out io.Writer, trace *Traceback, config PrintConfig) {
+func formatSourceLine(c Call) (line string, width int) {
+	line = fmt.Sprintf("%s:%d", c.Source, c.Line)
+	width = gowidth.StringWidth(line)
+	return
+}
+
+func printPretty(out io.Writer, trace *Traceback, config PrintConfig) {
 	tr := *trace
 	if !config.PreserveSourcePrefix {
 		tr.Stacks = TrimSourcePrefix(trace.Stacks)
-	}
-	maxwidth := int(0)
-	for _, s := range tr.Stacks {
-		for _, c := range s.Calls {
-			width := gowidth.StringWidth(c.Func)
-			if maxwidth < width {
-				maxwidth = width
-			}
-		}
 	}
 	if tr.Reason != "" {
 		fmt.Fprintln(out, tr.Reason)
 		fmt.Fprintln(out)
 	}
 	for i, s := range tr.Stacks {
+		call2width := make([]int, len(s.Calls))
+		width2call := make(map[int][]int)
+		minwidth, maxwidth := 0, 0
+		for i, c := range s.Calls {
+			_, width := formatSourceLine(c)
+			width2call[width] = append(width2call[width], i)
+			if minwidth == 0 || minwidth > width {
+				minwidth = width
+			}
+			if maxwidth < width {
+				maxwidth = width
+			}
+		}
+		for w := minwidth; w <= maxwidth; {
+			if len(width2call[w]) == 0 {
+				w++
+				continue
+			}
+			max2 := 0
+			for v := w; v <= maxwidth && v < w+8; v++ {
+				if len(width2call[v]) != 0 {
+					max2 = v
+				}
+			}
+			for v := w; v <= max2; v++ {
+				calls := width2call[v]
+				for _, c := range calls {
+					dw := max2 - v
+					call2width[c] = dw
+				}
+			}
+			w = max2 + 1
+		}
+
 		if i != 0 {
 			fmt.Fprintln(out)
 		}
 		fmt.Fprintf(out, "goroutine %d [%s]\n", s.ID, s.Status)
-		for _, c := range s.Calls {
-			width := gowidth.StringWidth(c.Func)
-			dw := maxwidth - width
-			fmt.Fprintf(out, "  %s%s  %s:%d\n", c.Func, strings.Repeat(" ", dw), c.Source, c.Line)
+		for i, c := range s.Calls {
+			src, _ := formatSourceLine(c)
+			dw := call2width[i]
+
+			fn := c.Func
+			if idx := strings.LastIndex(fn, "/"); idx != -1 && idx+1 < len(fn) {
+				fn = fn[idx+1:]
+			}
+			if idx := strings.Index(fn, "."); idx != -1 && idx+1 < len(fn) {
+				fn = fn[idx+1:]
+			}
+			fmt.Fprintf(out, "  %s%s %s()\n", src, strings.Repeat(" ", dw), fn)
 		}
 	}
 }

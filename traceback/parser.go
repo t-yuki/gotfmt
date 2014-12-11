@@ -8,6 +8,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"reflect"
 	"regexp"
 	"regexp/syntax"
 	"strconv"
@@ -41,7 +42,12 @@ func ParseTraceback(r io.Reader, w io.Writer) (*Traceback, error) {
 			continue
 		}
 	}
-	trace.Stacks = stacks
+	if len(stacks) != 0 {
+		trace.Stacks = stacks
+	}
+	if reflect.DeepEqual(trace, &Traceback{}) {
+		return nil, nil
+	}
 	return trace, nil
 }
 

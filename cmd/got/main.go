@@ -12,9 +12,6 @@ var flags = flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 
 func init() {
 	cmd.RegisterFlags(flags)
-	t := flags.Lookup("t")
-	t.DefValue = "text"
-	t.Value.Set("text")
 	flags.Usage = func() {
 		fmt.Fprintln(os.Stderr, "got - Go Test runner utility")
 		fmt.Fprintf(os.Stderr, "Usage of %s [FILE]:\n", os.Args[0])

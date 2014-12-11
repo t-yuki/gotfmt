@@ -51,10 +51,10 @@ Usage of gotfmt [test|FILE]:
   -n=1: repeat the test N times while it passes
   -np=0: similar to a combination of `-n` and `-p` but increment GOMAXPROCS from 1 for each repeat
   -p=0: set GOMAXPROCS
-  -t="col": output format
+  -t="pretty": output format
         raw: as-is and no filtering
         text: filtered GOTRACEBACK style
-        col: column formatted text
+        pretty: pretty formatted text
         qfix: vim quickfix output format with errorformat: '%f:%l:\ %m'. you should use with 'nostd,notest,top' filters
         json: JSON format
 ```

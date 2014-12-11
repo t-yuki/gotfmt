@@ -71,16 +71,16 @@ func Run(args []string) (err error) {
 	goErr := &bytes.Buffer{}
 	in = io.TeeReader(in, goErr)
 
-	Convert(in, wr)
+	tr := Convert(in, wr)
 
 	if cmd != nil {
 		err = cmd.Wait()
-		if err != nil {
-			_, h, ok := getScreenSize()
-			logLines := countLines(log)
-			if ok && h-3 < logLines {
-				runPager(log)
-			}
+	}
+	if tr != nil {
+		_, h, isTTY := getScreenSize()
+		logLines := countLines(log)
+		if isTTY && h-3 < logLines {
+			runPager(log)
 		}
 	}
 	return err
@@ -101,8 +101,8 @@ func getScreenSize() (w, h int, ok bool) {
 }
 
 func countLines(buf *bytes.Buffer) (n int) {
-	for i := range buf.Bytes() {
-		if i == '\n' {
+	for _, v := range buf.Bytes() {
+		if v == '\n' {
 			n++
 		}
 	}

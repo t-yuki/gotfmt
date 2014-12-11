@@ -1,6 +1,21 @@
 package traceback
 
-import "fmt"
+import (
+	"bytes"
+	"fmt"
+	"io/ioutil"
+	"testing"
+)
+
+func TestParseTraceback_empty(t *testing.T) {
+	trace, err := ParseTraceback(&bytes.Buffer{}, ioutil.Discard)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if trace != nil {
+		t.Fatal("want: nil but", trace)
+	}
+}
 
 func ExampleParseStacks_deadlock() {
 	printTrace("testdata/deadlock.txt")
