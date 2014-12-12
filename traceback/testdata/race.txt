@@ -1,0 +1,22 @@
+==================
+WARNING: DATA RACE
+Write by goroutine 5:
+  runtime.mapassign1()
+      /usr/local/go/src/runtime/hashmap.go:376 +0x0
+  main.func·001()
+      /home/sey/gopath/src/github.com/t-yuki/gotfmt/traceback/testdata/race.go:14 +0xa3
+
+Previous write by main goroutine:
+  runtime.mapassign1()
+      /usr/local/go/src/runtime/hashmap.go:376 +0x0
+  main.main()
+      /home/sey/gopath/src/github.com/t-yuki/gotfmt/traceback/testdata/race.go:17 +0x22e
+
+Goroutine 5 (running) created at:
+  main.main()
+      /home/sey/gopath/src/github.com/t-yuki/gotfmt/traceback/testdata/race.go:16 +0x1ac
+==================
+2 b
+1 a
+Found 1 data race(s)
+exit status 66

@@ -1,0 +1,36 @@
+=== RUN TestRace
+==================
+WARNING: DATA RACE
+Write by goroutine 6:
+  runtime.mapassign1()
+      /usr/local/go/src/runtime/hashmap.go:376 +0x0
+  github.com/t-yuki/gotfmt/traceback/testdata.func·005()
+      /home/sey/gopath/src/github.com/t-yuki/gotfmt/traceback/testdata/race_test.go:14 +0xa3
+
+Previous write by goroutine 5:
+  runtime.mapassign1()
+      /usr/local/go/src/runtime/hashmap.go:376 +0x0
+  github.com/t-yuki/gotfmt/traceback/testdata.TestRace()
+      /home/sey/gopath/src/github.com/t-yuki/gotfmt/traceback/testdata/race_test.go:17 +0x22e
+  testing.tRunner()
+      /usr/local/go/src/testing/testing.go:447 +0x133
+
+Goroutine 6 (running) created at:
+  github.com/t-yuki/gotfmt/traceback/testdata.TestRace()
+      /home/sey/gopath/src/github.com/t-yuki/gotfmt/traceback/testdata/race_test.go:16 +0x1ac
+  testing.tRunner()
+      /usr/local/go/src/testing/testing.go:447 +0x133
+
+Goroutine 5 (running) created at:
+  testing.RunTests()
+      /usr/local/go/src/testing/testing.go:555 +0xd4e
+  testing.(*M).Run()
+      /usr/local/go/src/testing/testing.go:485 +0xe0
+  main.main()
+      github.com/t-yuki/gotfmt/traceback/testdata/_test/_testmain.go:64 +0x28c
+==================
+2 b
+1 a
+--- PASS: TestRace (0.00s)
+PASS
+ok  	github.com/t-yuki/gotfmt/traceback/testdata	0.029s

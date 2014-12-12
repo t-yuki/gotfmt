@@ -107,3 +107,22 @@ func ExampleParseStacks_userdefined1() {
 	// [12/01/14 20:19:04.626520] [INFO] YYY
 	// FAIL	github.com/t-yuki/gotracetools/traceback/testdata	0.010s
 }
+
+func ExampleParseStacks_race() {
+	printTrace("testdata/race.txt")
+	// Output:
+	// Reason:WARNING: DATA RACE
+	// Race ID:5 Status:Write Calls:2 Head:runtime.mapassign1
+	// Race ID:0 Status:Previous write Calls:2 Head:runtime.mapassign1
+	// ID:5 Status:running Calls:1 Head:main.main
+}
+
+func ExampleParseStacks_racetest() {
+	printTrace("testdata/race_test.txt")
+	// Output:
+	// Reason:WARNING: DATA RACE
+	// Race ID:6 Status:Write Calls:2 Head:runtime.mapassign1
+	// Race ID:5 Status:Previous write Calls:3 Head:runtime.mapassign1
+	// ID:6 Status:running Calls:2 Head:github.com/t-yuki/gotfmt/traceback/testdata.TestRace
+	// ID:5 Status:running Calls:3 Head:testing.RunTests
+}
