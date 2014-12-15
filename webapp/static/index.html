@@ -12,12 +12,19 @@
 <body ng-controller="TracebackCtrl">
 <h1>Golang Stacktrace / Traceback Analyzer</h1>
 <p>Your godoc URL: <input type="url" ng-model="godocURL" size="32"></input></p>
-<p><button ng-click="start()">start</button></p>
 <form method="POST" novalidate class="simple-form">
-	<textarea ng-model="traceback" cols="40" rows="10"></textarea>
-	<button ng-click="analyze(traceback)">analyze</button>
+<table><tr><td>
+	<textarea ng-model="traceback" cols="100" rows="30"></textarea>
+</td><td>
+	<textarea ng-model="result" ng-show="result" cols="100" rows="30"></textarea>
+</td></tr></table>
+<select ng-model="format" ng-init="format = 'pretty'">
+	<option value="pretty">Pretty</option>
+	<option value="text">Text</option>
+	<option value="json">JSON</option>
+</select>
+	<button ng-click="analyze(traceback, format)">analyze</button>
 </form>
-<textarea ng-model="result" ng-show="result" cols="40" rows="10"></textarea>
 <!--
 <div ng-model="result" ng-show="result">
 	<h2>Reason: {{result.Reason}}</h2>

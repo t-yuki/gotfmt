@@ -33,7 +33,9 @@ func processHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	trace.Stacks = traceback.TrimSourcePrefix(trace.Stacks)
 
-	if format := r.FormValue("format"); format == "json" {
+	format := r.FormValue("format")
+	switch format {
+	case "json":
 		b, err := json.Marshal(trace)
 		if err != nil {
 			log.Println(err)
@@ -42,8 +44,13 @@ func processHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(b)
-		return
+	case "text":
+		w.Header().Set("Content-Type", "text/plain")
+		traceback.Fprint(w, trace, traceback.PrintConfig{Format: traceback.Text})
+	case "pretty":
+		fallthrough
+	default:
+		w.Header().Set("Content-Type", "text/plain")
+		traceback.Fprint(w, trace, traceback.PrintConfig{Format: traceback.Pretty})
 	}
-	w.Header().Set("Content-Type", "text/plain")
-	traceback.Fprint(w, trace, traceback.PrintConfig{Format: traceback.Pretty})
 }
