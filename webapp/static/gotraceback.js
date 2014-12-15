@@ -11,10 +11,6 @@ gotrace.controller('TracebackCtrl', ['$scope', '$http', '$cookies', function ($s
 			$scope.result = data;
 		}).error(function(data, status, headers, config) {
 		});
-		$scope.showform = false;
-	};
-	$scope.start = function() {
-		$scope.showform = true;
 	};
 	$scope.godocURL = $cookies.godocURL;
 	$scope.$watch('godocURL', function(val) {
