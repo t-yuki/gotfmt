@@ -21,26 +21,26 @@ func ExampleParseStacks_deadlock() {
 	printTrace("testdata/deadlock.txt")
 	// Output:
 	// Reason:fatal error: all goroutines are asleep - deadlock!
-	// ID:1 Status:chan receive Calls:3 Head:testing.RunTests
-	// ID:3 Status:chan receive (nil chan) Calls:3 Head:github.com/t-yuki/gotracetools/traceback/testdata.TestDeadlock
-	// ID:4 Status:chan send (nil chan) Calls:2 Head:github.com/t-yuki/gotracetools/traceback/testdata.func·001
+	// ID:1 Status:chan receive Calls:3 Head:testing.RunTests Line:472
+	// ID:3 Status:chan receive (nil chan) Calls:3 Head:github.com/t-yuki/gotracetools/traceback/testdata.TestDeadlock Line:12
+	// ID:4 Status:chan send (nil chan) Calls:2 Head:github.com/t-yuki/gotracetools/traceback/testdata.func·001 Line:10
 }
 
 func ExampleParseStacks_timeout() {
 	printTrace("testdata/timeout.txt")
 	// Output:
 	// Reason:panic: test timed out after 1s
-	// ID:5 Status:running Calls:3 Head:runtime.panic
-	// ID:1 Status:chan receive Calls:3 Head:testing.RunTests
-	// ID:4 Status:sleep Calls:4 Head:time.Sleep
+	// ID:5 Status:running Calls:3 Head:runtime.panic Line:266
+	// ID:1 Status:chan receive Calls:3 Head:testing.RunTests Line:472
+	// ID:4 Status:sleep Calls:4 Head:time.Sleep Line:31
 }
 
 func ExampleParseStacks_timeout_early() {
 	printTrace("testdata/timeout_early.txt")
 	// Output:
 	// Reason:panic: test timed out after 1us
-	// ID:4 Status:running Calls:3 Head:runtime.panic
-	// ID:1 Status:runnable Calls:10 Head:syscall.Syscall
+	// ID:4 Status:running Calls:3 Head:runtime.panic Line:266
+	// ID:1 Status:runnable Calls:10 Head:syscall.Syscall Line:18
 }
 
 func ExampleParseStacks_sigabrt() {
@@ -48,8 +48,8 @@ func ExampleParseStacks_sigabrt() {
 	// Output:
 	// Reason:SIGABRT: abort
 	// PC=0x424dd1
-	// ID:1 Status:chan receive Calls:3 Head:testing.RunTests
-	// ID:4 Status:chan receive Calls:3 Head:github.com/t-yuki/gotracetools/traceback/testdata.TestSIGABRT
+	// ID:1 Status:chan receive Calls:3 Head:testing.RunTests Line:472
+	// ID:4 Status:chan receive Calls:3 Head:github.com/t-yuki/gotracetools/traceback/testdata.TestSIGABRT Line:18
 }
 
 func ExampleParseStacks_nil() {
@@ -57,8 +57,8 @@ func ExampleParseStacks_nil() {
 	// Output:
 	// Reason:panic: runtime error: invalid memory address or nil pointer dereference
 	// [signal 0xb code=0x1 addr=0x20 pc=0x4360a8]
-	// ID:4 Status:running Calls:3 Head:runtime.panic
-	// ID:1 Status:runnable Calls:3 Head:testing.RunTests
+	// ID:4 Status:running Calls:3 Head:runtime.panic Line:266
+	// ID:1 Status:runnable Calls:3 Head:testing.RunTests Line:472
 }
 
 func ExampleParseStacks_go7725() {
@@ -101,8 +101,8 @@ func ExampleParseStacks_userdefined1() {
 	// Output:
 	// Reason:CRITICAL_FAIL: [12/01/14 20:19:04.517909] opps
 	// 	xxx.go:10: want:1 but:2
-	// ID:4 Status:running Calls:3 Head:runtime.panic
-	// ID:1 Status:runnable Calls:3 Head:testing.RunTests
+	// ID:4 Status:running Calls:3 Head:runtime.panic Line:266
+	// ID:1 Status:runnable Calls:3 Head:testing.RunTests Line:472
 	// === RUN TestNil
 	// [12/01/14 20:19:04.626520] [INFO] YYY
 	// FAIL	github.com/t-yuki/gotracetools/traceback/testdata	0.010s
@@ -112,17 +112,28 @@ func ExampleParseStacks_race() {
 	printTrace("testdata/race.txt")
 	// Output:
 	// Reason:WARNING: DATA RACE
-	// Race ID:5 Status:Write Calls:2 Head:runtime.mapassign1
-	// Race ID:0 Status:Previous write Calls:2 Head:runtime.mapassign1
-	// ID:5 Status:running Calls:1 Head:main.main
+	// Race ID:5 Status:Write Calls:2 Head:runtime.mapassign1 Line:376
+	// Race ID:0 Status:Previous write Calls:2 Head:runtime.mapassign1 Line:376
+	// ID:5 Status:running Calls:1 Head:main.main Line:16
 }
 
 func ExampleParseStacks_racetest() {
 	printTrace("testdata/race_test.txt")
 	// Output:
 	// Reason:WARNING: DATA RACE
-	// Race ID:6 Status:Write Calls:2 Head:runtime.mapassign1
-	// Race ID:5 Status:Previous write Calls:3 Head:runtime.mapassign1
-	// ID:6 Status:running Calls:2 Head:github.com/t-yuki/gotfmt/traceback/testdata.TestRace
-	// ID:5 Status:running Calls:3 Head:testing.RunTests
+	// Race ID:6 Status:Write Calls:2 Head:runtime.mapassign1 Line:376
+	// Race ID:5 Status:Previous write Calls:3 Head:runtime.mapassign1 Line:376
+	// ID:6 Status:running Calls:2 Head:github.com/t-yuki/gotfmt/traceback/testdata.TestRace Line:16
+	// ID:5 Status:running Calls:3 Head:testing.RunTests Line:555
+}
+
+func ExampleParseStacks_issue9321() {
+	printTrace("testdata/issue9321.txt")
+	// Output:
+	// Reason:fatal error: schedule: holding locks
+	// ID:0 Status:runtime stack Calls:4 Head:runtime.throw Line:491
+	// ID:1 Status:chan receive Calls:3 Head:testing.RunTests Line:556
+	// ID:5 Status:semacquire Calls:4 Head:sync.(*WaitGroup).Wait Line:132
+	// ID:17 Status:semacquire Calls:6 Head:runtime.Stack Line:581
+	// ID:18 Status:running Calls:2 Head:goroutine running on other thread; stack unavailable Line:0
 }

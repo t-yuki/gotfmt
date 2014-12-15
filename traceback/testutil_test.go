@@ -22,14 +22,14 @@ func printTrace(filename string) (ignored *bytes.Buffer) {
 	for _, s := range trace.Races {
 		fmt.Printf("Race ID:%d Status:%s Calls:%d", s.ID, s.Status, len(s.Calls))
 		if len(s.Calls) >= 1 {
-			fmt.Printf(" Head:%s", s.Calls[0].Func)
+			fmt.Printf(" Head:%s Line:%d", s.Calls[0].Func, s.Calls[0].Line)
 		}
 		fmt.Println()
 	}
 	for _, s := range trace.Stacks {
 		fmt.Printf("ID:%d Status:%s Calls:%d", s.ID, s.Status, len(s.Calls))
 		if len(s.Calls) >= 1 {
-			fmt.Printf(" Head:%s", s.Calls[0].Func)
+			fmt.Printf(" Head:%s Line:%d", s.Calls[0].Func, s.Calls[0].Line)
 		}
 		fmt.Println()
 	}

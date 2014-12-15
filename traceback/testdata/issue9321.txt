@@ -1,0 +1,51 @@
+=== RUN TestRepro-4
+fatal error: schedule: holding locks
+
+runtime stack:
+runtime.throw(0x5fce0a)
+    /usr/local/go/src/runtime/panic.go:491 +0xad
+schedule()
+    /usr/local/go/src/runtime/proc.c:1542 +0x45
+runtime.park_m(0xc2080007e0)
+    /usr/local/go/src/runtime/proc.c:1654 +0x113
+runtime.mcall(0x42da74)
+    /usr/local/go/src/runtime/asm_amd64.s:186 +0x5a
+
+goroutine 1 [chan receive]:
+testing.RunTests(0x58eb80, 0x5ff370, 0x1, 0x1, 0xe6ed7f7c23f1d501)
+    /usr/local/go/src/testing/testing.go:556 +0xad6
+testing.(*M).Run(0xc20806a0a0, 0x60b9a0)
+    /usr/local/go/src/testing/testing.go:485 +0x6c
+main.main()
+    _/home/rina/repro/_test/_testmain.go:52 +0x1d5
+
+goroutine 5 [semacquire]:
+sync.(*WaitGroup).Wait(0xc20808c000)
+    /usr/local/go/src/sync/waitgroup.go:132 +0x169
+_/home/rina/repro.TestRepro(0xc208088000)
+    /home/rina/repro/sample_test.go:23 +0xba
+testing.tRunner(0xc208088000, 0x5ff370)
+    /usr/local/go/src/testing/testing.go:447 +0xbf
+created by testing.RunTests
+    /usr/local/go/src/testing/testing.go:555 +0xa8b
+
+goroutine 17 [semacquire]:
+runtime.Stack(0xc208098000, 0x100000, 0x100000, 0xc208098001, 0x100000)
+    /usr/local/go/src/runtime/mprof.go:581 +0x55
+runtime/pprof.writeGoroutineStacks(0x7f2b76ce2c20, 0xc2080100e0, 0x0, 0x0)
+    /usr/local/go/src/runtime/pprof/pprof.go:511 +0x8d
+runtime/pprof.writeGoroutine(0x7f2b76ce2c20, 0xc2080100e0, 0x2, 0x0, 0x0)
+    /usr/local/go/src/runtime/pprof/pprof.go:500 +0x4f
+runtime/pprof.(*Profile).WriteTo(0x5ff9a0, 0x7f2b76ce2c20, 0xc2080100e0, 0x2, 0x0, 0x0)
+    /usr/local/go/src/runtime/pprof/pprof.go:229 +0xd5
+_/home/rina/repro.func・001()
+    /home/rina/repro/sample_test.go:16 +0xce
+created by _/home/rina/repro.TestRepro
+    /home/rina/repro/sample_test.go:21 +0x9b
+
+goroutine 18 [running]:
+    goroutine running on other thread; stack unavailable
+created by _/home/rina/repro.TestRepro
+    /home/rina/repro/sample_test.go:22 +0xaa
+exit status 2
+FAIL    _/home/rina/repro   0.030s

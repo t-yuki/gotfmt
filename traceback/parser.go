@@ -138,6 +138,12 @@ func parseRace(s *bufio.Scanner, w *bufio.Writer, line string) (race Stack, ok b
 var stackRE = regexp.MustCompile(`[Gg]oroutine (\d+) [\[\(]([\w\d, ()]+)[\)\]]( created at)?:`)
 
 func parseStack(s *bufio.Scanner, w *bufio.Writer, line string) (stack Stack, ok bool) {
+	if line == "runtime stack:" {
+		stack.ID = 0
+		stack.Status = StackStatusRuntime
+		parseCalls(s, w, line, &stack)
+		return stack, true
+	}
 	strs := stackRE.FindStringSubmatch(line)
 	if strs == nil || strs[0] == "" || strs[1] == "" || strs[2] == "" {
 		return stack, false
@@ -166,7 +172,11 @@ func parseCalls(s *bufio.Scanner, w *bufio.Writer, line string, stack *Stack) {
 				line = line[0:i]
 			}
 		}
-		call.Func = strings.TrimPrefix(line, "created by ")
+		call.Func = strings.TrimSpace(strings.TrimPrefix(line, "created by "))
+		if call.Func == "goroutine running on other thread; stack unavailable" {
+			stack.Calls = append(stack.Calls, call)
+			continue
+		}
 		for {
 			if !s.Scan() {
 				return
@@ -178,10 +188,8 @@ func parseCalls(s *bufio.Scanner, w *bufio.Writer, line string, stack *Stack) {
 			}
 			w.WriteString(line + "\n")
 		}
-		if strings.HasPrefix(line, "\t") || strings.HasPrefix(line, "    ") || strings.HasPrefix(line, "        ") {
-			line = strings.TrimPrefix(line, "        ")
-			line = strings.TrimPrefix(line, "    ")
-			line = strings.TrimPrefix(line, "\t")
+		if strings.HasPrefix(line, "\t") || strings.HasPrefix(line, "  ") {
+			line = strings.TrimSpace(line)
 			if i := strings.LastIndex(line, ":"); i >= 0 {
 				call.Source = line[0:i]
 				line = line[i:]

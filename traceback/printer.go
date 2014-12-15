@@ -83,7 +83,9 @@ func formatStackHead(s *Stack) string {
 var gowidth = runewidth.Condition{false}
 
 func formatSourceLine(c Call) (line string, width int) {
-	line = fmt.Sprintf("%s:%d", c.Source, c.Line)
+	if c.Source != "" {
+		line = fmt.Sprintf("%s:%d", c.Source, c.Line)
+	}
 	width = gowidth.StringWidth(line)
 	return
 }
@@ -161,7 +163,11 @@ func printPrettyCalls(out io.Writer, calls []Call) {
 		if idx := strings.Index(fn, "."); idx != -1 && idx+1 < len(fn) {
 			fn = fn[idx+1:]
 		}
-		fmt.Fprintf(out, "  %s%s %s()\n", src, strings.Repeat(" ", dw), fn)
+		if src != "" {
+			fmt.Fprintf(out, "  %s%s %s()\n", src, strings.Repeat(" ", dw), fn)
+		} else {
+			fmt.Fprintf(out, "  %s\n", fn)
+		}
 	}
 }
 
