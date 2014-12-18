@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -26,57 +27,63 @@ func Main(args []string) {
 	sigquit := make(chan os.Signal, 1)
 	signal.Notify(sigquit, syscall.SIGQUIT)
 
+	testbin := ""
+
+	if repeat > 1 {
+		file, err := ioutil.TempFile("", "gotfmt")
+		if err != nil {
+			panic(err)
+		}
+		defer os.Remove(file.Name())
+		err = build(file.Name(), args)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err.Error())
+			os.Exit(1)
+		}
+		testbin = file.Name()
+	}
+
 	for i := 0; i < repeat; i++ {
 		if *fNP != 0 {
 			os.Setenv("GOMAXPROCS", strconv.Itoa(i+1))
 		}
-		err := Run(args)
+		err := Run(args, testbin)
 		if err != nil {
 			os.Exit(1)
 		}
 	}
 }
 
-func Run(args []string) (err error) {
+func Run(args []string, testbin string) (err error) {
 	log := &bytes.Buffer{}
-	wr := io.MultiWriter(os.Stdout, log)
+	logger := io.MultiWriter(os.Stdout, log)
 
-	var in io.Reader
-	var cmd *exec.Cmd
-	if len(args) != 0 && args[0] != "test" {
-		if _, err := os.Stat(args[0]); err == nil {
+	in := io.Reader(os.Stdin)
+	testErrCh := (chan error)(nil)
+	if len(args) != 0 {
+		if args[0] == "test" { // run gotest, use prebuilt if available
+			in, testErrCh, err = runGotest(testbin, args, logger)
+			if err != nil {
+				return err
+			}
+		} else if _, err := os.Stat(args[0]); err == nil { // read stacktrace from a file
 			if f, err := os.Open(args[0]); err == nil {
 				in = f
 				defer f.Close()
 			}
 		}
-	}
-	if len(args) != 0 && in == nil {
-		cmd = exec.Command("go", args...)
-		cmd.Stdin = os.Stdin
-		cmd.Stdout = wr
-		stderr, err := cmd.StderrPipe()
-		if err != nil {
-			panic(err)
-		}
-		in = stderr
-		err = cmd.Start()
-		if err != nil {
-			return err
-		}
-	}
-	if in == nil {
-		in = io.Reader(os.Stdin)
-	}
+	} // otherwise, use stdin
+
 	goErr := &bytes.Buffer{}
 	in = io.TeeReader(in, goErr)
 
-	tr := Convert(in, wr)
+	trace := Convert(in, logger)
 
-	if cmd != nil {
-		err = cmd.Wait()
+	if testErrCh != nil {
+		testErrCh <- nil
+		err = <-testErrCh
 	}
-	if tr != nil {
+	if trace != nil {
 		_, h, isTTY := getScreenSize()
 		logLines := countLines(log)
 		if isTTY && h-3 < logLines {
@@ -84,6 +91,74 @@ func Run(args []string) (err error) {
 		}
 	}
 	return err
+}
+
+func appendOptPrefix(args []string) []string {
+	ret := make([]string, 0, len(args))
+	for _, arg := range args {
+		pair := strings.Split(arg, "=")
+		// TODO: skip next arg if len(pair) == 0 and pair[0] is not bool type
+		switch pair[0] {
+		case "-race", "-cover", "-covermode", "-coverpkg":
+			continue // ignore build time flag
+		case "-bench", "-benchmem", "-benchtime":
+		case "-blockprofile", "-blockprofilerate":
+		case "-coverprofile":
+		case "-cpu", "-cpuprofile":
+		case "-memprofile", "-memprofilerate":
+		case "-outputdir", "-parallel", "-run", "-short", "-timeout", "-v":
+			break // append test. prefix
+		default:
+			ret = append(ret, arg)
+			continue
+		}
+		ret = append(ret, "-test."+arg[1:])
+	}
+	return ret
+}
+
+func runGotest(testbin string, args []string, logger io.Writer) (errlogOut io.Reader, execResult chan error, startError error) {
+	prebuilt := testbin != ""
+	if prebuilt {
+		if args[0] == "test" {
+			args = args[1:]
+		}
+		args = appendOptPrefix(args)
+	} else {
+		testbin = "go"
+	}
+	cmd := exec.Command(testbin, args...)
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = logger
+	stderr, err := cmd.StderrPipe()
+	if err != nil {
+		return nil, nil, err
+	}
+	err = cmd.Start()
+	if err != nil {
+		return nil, nil, err
+	}
+
+	resultChan := make(chan error, 0)
+	go catchCommandResult(cmd, resultChan, prebuilt)
+	return stderr, resultChan, nil
+}
+
+func catchCommandResult(cmd *exec.Cmd, resultChan chan error, prebuilt bool) {
+	<-resultChan // wait for Convert is done
+	err := cmd.Wait()
+	if prebuilt {
+		if err != nil {
+			exiterr := err.(*exec.ExitError)
+			if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
+				fmt.Fprintf(os.Stderr, "exit status %d\n", status.ExitStatus())
+			}
+			fmt.Fprintf(os.Stderr, "FAIL\n") // TODO: write package name and time or fail reason
+		} else {
+			fmt.Fprintf(os.Stderr, "ok\n") // TODO: write package name and time
+		}
+	}
+	resultChan <- err
 }
 
 func getScreenSize() (w, h int, ok bool) {

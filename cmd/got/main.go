@@ -25,7 +25,7 @@ func init() {
 
 func main() {
 	mode := "test"
-	args := cmd.ParseFlags(flags)
+	args := cmd.ParseFlags(flags, os.Args[1:])
 
 	if len(args) != 0 {
 		if _, err := os.Stat(args[0]); err == nil {

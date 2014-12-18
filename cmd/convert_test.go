@@ -1,10 +1,14 @@
-package cmd
+package cmd_test
 
 import (
 	"bytes"
 	"encoding/json"
+	"flag"
 	"io/ioutil"
+	"os"
 	"testing"
+
+	"github.com/t-yuki/gotfmt/cmd"
 )
 
 func TestConvert_data1(t *testing.T) {
@@ -24,32 +28,35 @@ func TestConvert_data2(t *testing.T) {
 }
 
 func testConvert(t *testing.T, data []byte) {
+	flags := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
+	cmd.RegisterFlags(flags)
 	var out *bytes.Buffer
-	*format = "raw"
+
 	out = &bytes.Buffer{}
-	Convert(bytes.NewBuffer(data), out)
+	cmd.ParseFlags(flags, []string{"-t=raw"})
+	cmd.Convert(bytes.NewBuffer(data), out)
 	if !bytes.Equal(data, out.Bytes()) {
-		t.Fatal("want: data == out but:", data, out)
+		t.Fatalf("want: data == out but: %s != %s", data, out)
 	}
 
-	*format = "text"
 	out = &bytes.Buffer{}
-	Convert(bytes.NewBuffer(data), out)
+	cmd.ParseFlags(flags, []string{"-t=text"})
+	cmd.Convert(bytes.NewBuffer(data), out)
 
-	*format = "pretty"
 	out = &bytes.Buffer{}
-	Convert(bytes.NewBuffer(data), out)
+	cmd.ParseFlags(flags, []string{"-t=pretty"})
+	cmd.Convert(bytes.NewBuffer(data), out)
 
-	*format = "json"
 	out = &bytes.Buffer{}
-	Convert(bytes.NewBuffer(data), out)
+	cmd.ParseFlags(flags, []string{"-t=json"})
+	cmd.Convert(bytes.NewBuffer(data), out)
 	var m map[string]interface{}
 	err := json.Unmarshal(out.Bytes(), &m)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	*format = "qfix"
 	out = &bytes.Buffer{}
-	Convert(bytes.NewBuffer(data), out)
+	cmd.ParseFlags(flags, []string{"-t=qfix"})
+	cmd.Convert(bytes.NewBuffer(data), out)
 }

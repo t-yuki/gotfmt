@@ -29,7 +29,7 @@ func init() {
 }
 
 func main() {
-	goArgs := cmd.ParseFlags(flags)
+	goArgs := cmd.ParseFlags(flags, os.Args[1:])
 	if *httpAddr != "" {
 		webapp.ListenAndServe(*httpAddr)
 		return

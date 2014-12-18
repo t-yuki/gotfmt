@@ -16,10 +16,6 @@ var (
 	fNP      *int
 )
 
-func init() {
-	RegisterFlags(flag.NewFlagSet(os.Args[0], flag.ExitOnError))
-}
-
 func RegisterFlags(flags *flag.FlagSet) {
 	help = flags.Bool("h", false, "show this help")
 	filter = flags.String("f", "trimstd,notest", `stack trace filters by comma-separated list
@@ -39,13 +35,12 @@ func RegisterFlags(flags *flag.FlagSet) {
 	fNP = flags.Int("np", 0, "similar to a combination of `-n` and `-p` but increment GOMAXPROCS from 1 for each repeat")
 }
 
-func ParseFlags(flags *flag.FlagSet) (otherArgs []string) {
+func ParseFlags(flags *flag.FlagSet, origArgs []string) (otherArgs []string) {
 	args := make([]string, 0, 10)
 	otherArgs = make([]string, 0, 10)
 
 	var skip bool
-	for i := 1; i < len(os.Args); i++ {
-		arg := os.Args[i]
+	for i, arg := range origArgs {
 		if skip {
 			otherArgs = append(otherArgs, arg)
 			continue
@@ -61,12 +56,12 @@ func ParseFlags(flags *flag.FlagSet) (otherArgs []string) {
 		switch {
 		case flags.Lookup(name) != nil || name == "h" || name == "help":
 			args = append(args, arg)
-			if i+1 < len(os.Args) && len(pair) == 1 {
+			if i+1 < len(origArgs) && len(pair) == 1 {
 				fv, ok := flags.Lookup(name).Value.(interface {
 					IsBoolFlag() bool
 				})
 				if !ok || !fv.IsBoolFlag() {
-					args = append(args, os.Args[i+1])
+					args = append(args, origArgs[i+1])
 					i++
 				}
 			}
