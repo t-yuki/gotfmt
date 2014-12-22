@@ -23,10 +23,6 @@ func Main(args []string) {
 		os.Setenv("GOMAXPROCS", strconv.Itoa(procs))
 	}
 
-	// ignore sigquit
-	sigquit := make(chan os.Signal, 1)
-	signal.Notify(sigquit, syscall.SIGQUIT)
-
 	testbin := ""
 
 	if repeat > 1 {
@@ -127,6 +123,12 @@ func runGotest(testbin string, args []string, logger io.Writer) (errlogOut io.Re
 	} else {
 		testbin = "go"
 	}
+
+	// ignore sigquit, sigint and sigterm during gotest
+	sigch := make(chan os.Signal, 1)
+	signal.Notify(sigch, syscall.SIGQUIT)
+	signal.Notify(sigch, os.Interrupt)
+
 	cmd := exec.Command(testbin, args...)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = logger
@@ -140,13 +142,14 @@ func runGotest(testbin string, args []string, logger io.Writer) (errlogOut io.Re
 	}
 
 	resultChan := make(chan error, 0)
-	go catchCommandResult(cmd, resultChan, prebuilt)
+	go catchCommandResult(cmd, resultChan, sigch, prebuilt)
 	return stderr, resultChan, nil
 }
 
-func catchCommandResult(cmd *exec.Cmd, resultChan chan error, prebuilt bool) {
+func catchCommandResult(cmd *exec.Cmd, resultChan chan error, sigch chan os.Signal, prebuilt bool) {
 	<-resultChan // wait for Convert is done
 	err := cmd.Wait()
+	signal.Stop(sigch)
 	if prebuilt {
 		if err != nil {
 			exiterr := err.(*exec.ExitError)
@@ -168,7 +171,7 @@ func getScreenSize() (w, h int, ok bool) {
 	if err != nil {
 		return 0, 0, false
 	}
-	fmt.Sscanf(string(out), "%d %d\n", &w, &h)
+	fmt.Sscanf(string(out), "%d %d\n", &h, &w)
 	if w == 0 || h == 0 {
 		return w, h, false
 	}
