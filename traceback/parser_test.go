@@ -137,3 +137,12 @@ func ExampleParseStacks_issue9321() {
 	// ID:17 Status:semacquire Calls:6 Head:runtime.Stack Line:581
 	// ID:18 Status:running Calls:2 Head:goroutine running on other thread; stack unavailable Line:0
 }
+
+func ExampleParseStacks_issue9307() {
+	printTrace("testdata/issue9307.txt")
+	// Output:
+	// Reason:WARNING: DATA RACE
+	// Race ID:5 Status:Read Calls:5 Head:os.(*File).write Line:212
+	// Race ID:0 Status:Previous write Calls:9 Head:os.(*file).close Line:109
+	// ID:5 Status:running Calls:1 Head:main.main Line:22
+}
