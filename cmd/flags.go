@@ -40,7 +40,8 @@ func ParseFlags(flags *flag.FlagSet, origArgs []string) (otherArgs []string) {
 	otherArgs = make([]string, 0, 10)
 
 	var skip bool
-	for i, arg := range origArgs {
+	for i := 0; i < len(origArgs); i++ {
+		arg := origArgs[i]
 		if skip {
 			otherArgs = append(otherArgs, arg)
 			continue
@@ -61,11 +62,11 @@ func ParseFlags(flags *flag.FlagSet, origArgs []string) (otherArgs []string) {
 					IsBoolFlag() bool
 				})
 				if !ok || !fv.IsBoolFlag() {
-					args = append(args, origArgs[i+1])
+					args[len(args)-1] = arg + "=" + origArgs[i+1]
 					i++
 				}
 			}
-		case name == "":
+		case key == "":
 			skip = true
 		default:
 			otherArgs = append(otherArgs, arg)
